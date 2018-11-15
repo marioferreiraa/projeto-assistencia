@@ -11,26 +11,22 @@ public class ClienteDAOTest {
 	
 	@Test
 	public void testInserirCliente() {
-		Endereco endereco = new Endereco();
-		endereco.setBairro("candeias");
-		endereco.setCep("54320470");
-		endereco.setCidade("Jaboatão dos Guararapes");
-		endereco.setNumero("10");
-		endereco.setId(1002);
+		
+		Endereco endereco = new Endereco("Rua a", "54470250", "Bairro novo", "recife", "s/c", "12");
+		EnderecoDAO enderecoDAO = new EnderecoDAO();
+		enderecoDAO.inserir(endereco);
 		
 		Cliente cliente = new Cliente();
-		cliente.setCpf("11111111111");
+		cliente.setCpf("22222222222");
 		cliente.setEmail("asa@as.as");
 		cliente.setNome("Cliente de Teste");
 		cliente.setTelefone("81988765334");
-		cliente.setId(1002);
-		
-		endereco.setCliente(cliente);
+		cliente.setSexo("Masculino");
 		cliente.setEndereco(endereco);
-		
+				
 		ClienteDAO clienteDAO = new ClienteDAO();
 		clienteDAO.inserir(cliente);
-		
+
 	}
 
 }

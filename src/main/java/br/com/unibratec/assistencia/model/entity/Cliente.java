@@ -1,13 +1,18 @@
 package br.com.unibratec.assistencia.model.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -20,11 +25,11 @@ public class Cliente implements IEntidade, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	/*@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_cliente")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_cliente")
 	@SequenceGenerator(name="s_codigo_cliente", 
 					   sequenceName="sequence_cliente", 
 					   initialValue=1000,
-					   allocationSize = 1)*/
+					   allocationSize = 1)
 	@Column(name="codigo_cliente")
 	private Integer id;
 	
@@ -43,8 +48,8 @@ public class Cliente implements IEntidade, Serializable {
 	@Column(name="sexo_cliente", length=10)
 	private String sexo;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	private Endereco endereco;	
+	@OneToOne
+	private Endereco endereco;
 	
 	/*
 	 * Construtor padrão
@@ -54,13 +59,12 @@ public class Cliente implements IEntidade, Serializable {
 	}
 	
 	/*
-	 * Construtor com todos os parametros
+	 * Construtor com todos os parametros de cliente
 	 */
-	public Cliente(String nome, String cpf, String telefone, String email, String sexo, Integer id) {
+	public Cliente(String nome ,String cpf, String telefone, String email, String sexo, String rua, String cep, String bairro ,String cidade, String complemento, String numero) {
 		
 		this.setCpf(cpf);
 		this.setEmail(email);
-		this.setId(id);
 		this.setNome(nome);
 		this.setSexo(sexo);
 		this.setTelefone(telefone);
@@ -107,14 +111,6 @@ public class Cliente implements IEntidade, Serializable {
 		this.email = email;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
 	public String getSexo() {
 		return sexo;
 	}
@@ -123,9 +119,16 @@ public class Cliente implements IEntidade, Serializable {
 		this.sexo = sexo;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public Object getChavePrimaria() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.id;
 	}
 
 }

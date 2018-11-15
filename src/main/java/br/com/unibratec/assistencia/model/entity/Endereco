@@ -1,22 +1,16 @@
 package br.com.unibratec.assistencia.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Endereco implements IEntidade{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_endereco")
-	@SequenceGenerator(name="s_codigo_endereco", 
-					   sequenceName="sequence_endereco", 
-					   initialValue=1000,
-					   allocationSize = 1)
-	@Column(name="codigo_endereco")
+	@Column(name="codigo_cliente")
 	private Integer id;
 	
 	@Column
@@ -37,6 +31,9 @@ public class Endereco implements IEntidade{
 	@Column
 	private String numero;
 	
+	@OneToOne(mappedBy="endereco",cascade=CascadeType.ALL)
+	private Cliente cliente;
+	
 	/*
 	 * Construtor padrão
 	 */
@@ -44,13 +41,14 @@ public class Endereco implements IEntidade{
 		super();
 	}
 
-	public Endereco(String rua, String cep, String bairro, String cidade, String complemento, String numero){
+	public Endereco(String rua, String cep, String bairro, String cidade, String complemento, String numero, Integer id){
 		
 		this.setRua(rua);
 		this.setBairro(bairro);
 		this.setCep(cep);
 		this.setCidade(cidade);
 		this.setNumero(numero);
+		this.setId(id);
 		
 	}
 	
@@ -110,8 +108,17 @@ public class Endereco implements IEntidade{
 		this.id = id;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	public Object getChavePrimaria() {
-		return this.id;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

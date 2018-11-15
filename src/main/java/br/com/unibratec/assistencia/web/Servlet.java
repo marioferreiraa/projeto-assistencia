@@ -51,20 +51,6 @@ public class Servlet extends HttpServlet {
 		String cidade = req.getParameter("cidade");
 		String complemento = req.getParameter("complemento");
 		String numero = req.getParameter("numero");
-		
-		try {
-			
-			Endereco endereco = new Endereco(rua, cep, bairro, cidade, complemento, numero, id);
-			Cliente cliente = new Cliente(nome, cpf, telefone, email, sexo, id );
-			endereco.setCliente(cliente);
-			cliente.setEndereco(endereco);
-			
-			ClienteDAO clienteDAO = new ClienteDAO();
-			clienteDAO.inserir(cliente);
-			
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
 				
 		//doGet(request, response);
 	}
