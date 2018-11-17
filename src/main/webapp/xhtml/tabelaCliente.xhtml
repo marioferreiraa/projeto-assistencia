@@ -10,84 +10,93 @@
 		<title>Crud Clientes para Base</title>
 	</h:head>
 	<h:body>
-		<h:form>
+		<p:growl id="messages"/>
+	
+		<h:form id="formListagem">
 	
 			<p:panel header="Clientes - Listagem">
 		
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
-					paginator="true">
+					paginator="true"
+					value="#{clienteMB.listaClientes}"
+					var="cliente"
+					rows="8"
+					id="tabelaClientes">
 		
 					<f:facet name="header">
-						<p:commandButton value="novo" oncomplete="PF('modalCadastro').show();" />
+						<p:commandButton value="novo" oncomplete="PF('modalCadastro').show();" 
+										 actionListener="#{clienteMB.novo}" 
+										 update=":formCliente:panelCliente" />
 					</f:facet>
 		
-					<p:column headerText="Nome">
+					<p:column headerText="Nome" sortBy="#{cliente.nome}" filterBy="#{cliente.nome}">
+						<h:outputText value="#{cliente.nome}"/>
 					</p:column>
 		
-					<p:column headerText="CPF">
+					<p:column headerText="CPF" filterBy="#{cliente.cpf}">
+						<h:outputText value="#{cliente.cpf}"/>
 					</p:column>
 		
 					<p:column headerText="Telefone">
+						<h:outputText value="#{cliente.telefone}"/>
 					</p:column>
 		
 					<p:column headerText="Email">
+						<h:outputText value="#{cliente.email}"/>
+					</p:column>
+					
+					<p:column headerText="Sexo">
+						<h:outputText value="#{cliente.sexo}"/>
 					</p:column>
 		
 					<p:column headerText="Ações">
-		
+						<p:commandButton icon="ui-icon-trash" action="#{clienteMB.excluirCliente(cliente)}"
+										 update="messages">
+							<p:confirm header="Confirmação?" message="Deseja excluir?" icon="ui-icon-alert"></p:confirm>
+							<!--  f:attribute name="clienteSelecionado" value="cliente"/-->
+						</p:commandButton>
+						
+						<p:commandButton icon="ui-icon-pencil" action="#{clienteMB.alterarDados(cliente)}" update=":messages :formCliente:panelCliente" 
+										 oncomplete="PF('modalCadastro').show()">
+							<f:attribute name="clienteSelecionado" value="cliente"/>
+						</p:commandButton>
 					</p:column>
 		
 				</p:dataTable>
+				
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+				</p:confirmDialog>
 		
 			</p:panel>
 		
 		</h:form>
 		
 		<p:dialog header="Estados - Cadastro" widgetVar="modalCadastro" draggable="false" resizable="false" modal="true">
-			<h:form>
-				<h:panelGrid columns="2">
+			<h:form id="formCliente">
+				<h:panelGrid columns="2" id="panelCliente">
 					<p:outputLabel value="Nome:"/>
-					<p:inputText size="30" maxlength="50"/>
+					<p:inputText size="30" maxlength="50" value="#{clienteMB.cliente.nome}"/>
 					
 					<p:outputLabel value="CPF:"></p:outputLabel>
-					<p:inputText size="30" maxlength="11"/>
+					<p:inputText size="30" maxlength="11" value="#{clienteMB.cliente.cpf}"/>
 					
 					<p:outputLabel value="Telefone:"></p:outputLabel>
-					<p:inputText size="30" maxlength="11"/>
+					<p:inputText size="30" maxlength="11" value="#{clienteMB.cliente.telefone}"/>
 					
 					<p:outputLabel value="Email:"></p:outputLabel>
-					<p:inputText size="30" maxlength="50"/>
+					<p:inputText size="30" maxlength="50" value="#{clienteMB.cliente.email}"/>
 					
 					<p:outputLabel value="Sexo:"></p:outputLabel>
-				 	<p:inputText size="30" maxlength="10"/>
+				 	<p:inputText size="30" maxlength="10" value="#{clienteMB.cliente.sexo}"/>
 				 </h:panelGrid>
 				 
-				 	<h5>Dados de endereço</h5>
-				 
+				 			
 				 <h:panelGrid columns="2">
-				 	<p:outputLabel value="Rua:"/>
-					<p:inputText size="30"/>
-					
-					<p:outputLabel value="CEP:"></p:outputLabel>
-					<p:inputText size="30"/>
-					
-					<p:outputLabel value="Bairro:"></p:outputLabel>
-					<p:inputText size="30"/>
-					
-					<p:outputLabel value="Cidade:"></p:outputLabel>
-					<p:inputText size="30"/>
-					
-					<p:outputLabel value="Complemento:"></p:outputLabel>
-				 	<p:inputText size="30"/>
-				 	
-				 	<p:outputLabel value="Numero:"></p:outputLabel>
-				 	<p:inputText size="30"/>
-				 </h:panelGrid>		
-				 <h:panelGrid columns="2">
-				 	<p:commandButton value="Salvar"/>
-				 	<p:commandButton value="Fechar"/>
+				 	<p:commandButton value="Salvar" actionListener="#{clienteMB.inserir}" update=":messages :formListagem:tabelaClientes :formCliente:panelCliente"/>
+				 	<p:commandButton value="Fechar" oncomplete="PF('modalCadastro').hide()"/>
 				 </h:panelGrid>
-							 	
 			</h:form>			
 		</p:dialog>
 		

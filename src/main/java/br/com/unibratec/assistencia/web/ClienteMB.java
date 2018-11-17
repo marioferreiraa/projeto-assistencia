@@ -1,7 +1,13 @@
 package br.com.unibratec.assistencia.web;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
+import org.omnifaces.util.Messages;
+
+import java.io.Console;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +17,7 @@ import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.Endereco;
 
 @ManagedBean
+@ViewScoped
 public class ClienteMB implements Serializable{	
 	
 	/**
@@ -18,49 +25,14 @@ public class ClienteMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;	
 	
-	Cliente cliente = new Cliente();
-	Endereco endereco = new Endereco();
+	Cliente cliente;
+	Endereco endereco;
 	
 	ClienteDAO clienteDAO = new ClienteDAO();
 	EnderecoDAO enderecoDAO = new EnderecoDAO();
 	
 	List<Cliente> listaClientes;
 	List<Endereco> listaEnderecos;
-	
-	
-	/*Testes para Dayene*/
-	final Double valor = 15.0;
-	private Integer spinner = 0;
-	private Double atualValor = 0.0;
-	
-	public void mult() {
-		if(spinner != null || spinner >= 1) {
-			this.atualValor = valor * spinner;
-		}
-	}
-	
-	public Double getValor() {
-		return valor;
-	}
-
-	public Integer getSpinner() {
-		return spinner;
-	}
-
-	public void setSpinner(Integer spinner) {
-		this.spinner = spinner;
-	}
-	
-	public Double getAtualValor() {
-		setAtualValor(valor * spinner);
-		return this.atualValor;
-	}
-	
-	public void setAtualValor(Double atualValor) {
-		this.atualValor = atualValor;
-	}
-	
-	/*Testes para Dayene*/
 
 	public ClienteMB() {}
 	
@@ -96,31 +68,52 @@ public class ClienteMB implements Serializable{
 		this.listaEnderecos = listaEndercos;
 	}
 	
+	@PostConstruct
 	public void atualizaListaClientes() {
 		this.listaClientes = clienteDAO.consultarTodosOsClientes();
 	}
 	
+	public void novo() {
+		cliente = new Cliente();		
+		endereco = new Endereco();
+	}
+	
 	public void inserir() {
-		if(this.cliente != null && this.endereco != null) {
+		
+		if(this.cliente != null /*&& this.endereco != null*/) {
 			
-			enderecoDAO.inserir(this.endereco);
-			cliente.setEndereco(this.endereco);
-			clienteDAO.inserir(this.cliente);
+			/*enderecoDAO.inserir(this.endereco);
+			cliente.setEndereco(this.endereco);*/
+			clienteDAO.inserirMerge(this.cliente);
 			
 			atualizaListaClientes();
-			
 		}
 	}
 	
-	public void deletarCliente(ActionEvent evento) {
-		cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+	public void deletarCliente(Cliente cliente) {
+		
+		Messages.addGlobalInfo("Nome: "+ cliente.getNome());
+		/*cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+		Messages.addGlobalInfo("Nome: "+ cliente.getNome());
 		clienteDAO.excluirPorObjeto(cliente);
-		atualizaListaClientes();
+		atualizaListaClientes();*/
 	}
 	
 	public void excluirCliente(Cliente cliente) {
 		clienteDAO.excluirPorObjeto(cliente);
 		atualizaListaClientes();
+	}
+	
+	public void editar(Cliente cliente) {
+		clienteDAO.excluirPorObjeto(cliente);
+		atualizaListaClientes();
+	}
+	
+	public void alterarDados(Cliente cliente) {
+		if(cliente != null) {
+			this.cliente = cliente;
+			System.out.println("inseriu");
+		}
 	}
 	
 }

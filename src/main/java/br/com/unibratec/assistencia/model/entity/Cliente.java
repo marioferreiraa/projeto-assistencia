@@ -127,7 +127,7 @@ public class Cliente implements IEntidade, Serializable {
 		this.endereco = endereco;
 	}
 
-	public Object getChavePrimaria() {
+	public Integer getChavePrimaria() {
 		return this.id;
 	}
 
