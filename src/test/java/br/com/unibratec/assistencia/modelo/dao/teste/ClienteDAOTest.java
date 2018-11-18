@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import br.com.unibratec.assistencia.model.dao.ClienteDAO;
 import br.com.unibratec.assistencia.model.dao.EnderecoDAO;
+import br.com.unibratec.assistencia.model.dao.ProdutoDAO;
 import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.Endereco;
+import br.com.unibratec.assistencia.model.entity.Produto;
 
 public class ClienteDAOTest {
 	
@@ -26,6 +28,17 @@ public class ClienteDAOTest {
 				
 		ClienteDAO clienteDAO = new ClienteDAO();
 		clienteDAO.inserir(cliente);
+
+	}
+	@Test
+	public void testInserirProduto() {
+		
+		Produto produto = new Produto();
+		produto.setNome("FonteTESTE");
+		produto.setDescricao("TEsteDescrição");
+	
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		produtoDAO.inserir(produto);
 
 	}
 
