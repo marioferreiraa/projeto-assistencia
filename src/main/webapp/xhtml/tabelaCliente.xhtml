@@ -14,10 +14,9 @@
 	
 		<h:form id="formListagem">
 	
-			<p:panel header="Clientes - Listagem">
-		
+			<p:panel header="Clientes - Listagem">		
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
-					paginator="true"
+					paginator="true"	
 					value="#{clienteMB.listaClientes}"
 					var="cliente"
 					rows="8"
@@ -63,9 +62,9 @@
 					</p:column>
 		
 				</p:dataTable>
-				
+
 				<p:confirmDialog global="true">
-					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":messages :formListagem:tabelaClientes"/>
 					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
 				</p:confirmDialog>
 		
