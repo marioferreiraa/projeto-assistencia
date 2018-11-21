@@ -11,6 +11,7 @@ import java.io.Console;
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.unibratec.assistencia.facade.FacadeClienteEndereco;
 import br.com.unibratec.assistencia.model.dao.ClienteDAO;
 import br.com.unibratec.assistencia.model.dao.EnderecoDAO;
 import br.com.unibratec.assistencia.model.entity.Cliente;
@@ -25,19 +26,26 @@ public class ClienteMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;	
 	
-	Cliente cliente;
-	Endereco endereco;
+	Cliente cliente = new Cliente();
+	Endereco endereco = new Endereco();
 	
 	ClienteDAO clienteDAO = new ClienteDAO();
 	EnderecoDAO enderecoDAO = new EnderecoDAO();
 	
 	List<Cliente> listaClientes;
 	List<Endereco> listaEnderecos;
+	
+	FacadeClienteEndereco facadeClienteEndereco = new FacadeClienteEndereco();
 
 	public ClienteMB() {}
 	
 	public Cliente getCliente() {
 		return cliente;
+	}
+	
+	public void novo() {
+		cliente = new Cliente();
+		endereco = new Endereco();
 	}
 	
 	public void setCliente(Cliente cliente) {
@@ -73,46 +81,42 @@ public class ClienteMB implements Serializable{
 		this.listaClientes = clienteDAO.consultarTodosOsClientes();
 	}
 	
-	public void novo() {
-		cliente = new Cliente();		
-		endereco = new Endereco();
-	}
-	
 	public void inserir() {
 		
-		if(this.cliente != null /*&& this.endereco != null*/) {
-			
-			/*enderecoDAO.inserir(this.endereco);
-			cliente.setEndereco(this.endereco);*/
-			clienteDAO.inserirMerge(this.cliente);
-			
-			atualizaListaClientes();
+		if(this.cliente != null && this.endereco != null) {	
+			try {
+				facadeClienteEndereco.inserirClienteEndereco(cliente, endereco);
+				novo();
+			}catch(Exception e) {
+				Messages.addGlobalInfo("Erro ao tentar inserir o cliente");
+				e.printStackTrace();
+			}
+		}else {
 		}
 	}
 	
-	public void deletarCliente(Cliente cliente) {
-		
-		Messages.addGlobalInfo("Nome: "+ cliente.getNome());
-		/*cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
-		Messages.addGlobalInfo("Nome: "+ cliente.getNome());
-		clienteDAO.excluirPorObjeto(cliente);
-		atualizaListaClientes();*/
-	}
-	
-	public void excluirCliente(Cliente cliente) {
-		clienteDAO.excluirPorObjeto(cliente);
-		atualizaListaClientes();
-	}
-	
-	public void editar(Cliente cliente) {
-		clienteDAO.excluirPorObjeto(cliente);
-		atualizaListaClientes();
+	public void excluirCliente(Cliente cliente) {	
+		try {
+			clienteDAO.excluirPorObjeto(cliente);
+			atualizaListaClientes();
+			Messages.addGlobalInfo("Cliente Deletado com sucesso");
+		}catch(Exception e) {
+			Messages.addGlobalError("Não foi possivel deletar o cliente!");
+		}
 	}
 	
 	public void alterarDados(Cliente cliente) {
 		if(cliente != null) {
 			this.cliente = cliente;
-			System.out.println("inseriu");
+		}
+	}
+	
+	public void merge() {
+		try {
+			clienteDAO.inserirMerge(cliente);
+			Messages.addGlobalInfo("Alteração realizada com sucesso!");
+		}catch(Exception e) {
+			Messages.addGlobalError("Não foi possível realizar a alteração");
 		}
 	}
 	
