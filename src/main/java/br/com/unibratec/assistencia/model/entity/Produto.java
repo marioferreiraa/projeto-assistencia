@@ -53,6 +53,26 @@ public class Produto implements IEntidade, Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	@Column(name="quantidade_produto")
+	private Integer quantidade;
+	
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+	@Column(name="valor_produto")
+	private Double valor;
+	
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
 
 
 
