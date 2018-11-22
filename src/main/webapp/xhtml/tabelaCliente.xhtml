@@ -75,7 +75,7 @@
 		<p:dialog header="Estados - Cadastro" widgetVar="modalCadastro" draggable="false" resizable="false" modal="true">
 			<h:form id="formCliente">
 				<h:panelGrid columns="2" id="panelCliente">
-					<p:outputLabel value="Nome:"/>
+					<!-- p:outputLabel value="Nome:"/>
 					<p:inputText size="30" maxlength="50" value="#{clienteMB.cliente.nome}"/>
 					
 					<p:outputLabel value="CPF:"></p:outputLabel>
@@ -88,7 +88,11 @@
 					<p:inputText size="30" maxlength="50" value="#{clienteMB.cliente.email}"/>
 					
 					<p:outputLabel value="Sexo:"></p:outputLabel>
-				 	<p:inputText size="30" maxlength="10" value="#{clienteMB.cliente.sexo}"/>
+				 	<p:inputText size="30" maxlength="10" value="#{clienteMB.cliente.sexo}"/> -->
+				 	
+				 	<p:outputLabel value="Teste Calendario"/>
+				 	<p:calendar id="button" value="#{testeMB.data}" showOn="button" />
+				 	
 				 </h:panelGrid>
 				 
 				 			

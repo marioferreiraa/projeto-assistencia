@@ -54,7 +54,7 @@ public class Cliente implements IEntidade, Serializable {
 	/*
 	 * Construtor com todos os parametros de cliente
 	 */
-	public Cliente(String nome ,String cpf, String telefone, String email, String sexo, String rua, String cep, String bairro ,String cidade, String complemento, String numero) {
+	public Cliente(String nome ,String cpf, String telefone, String email, String sexo) {
 		
 		this.setCpf(cpf);
 		this.setEmail(email);

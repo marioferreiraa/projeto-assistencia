@@ -11,6 +11,7 @@ import java.io.Console;
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.facade.FacadeClienteEndereco;
 import br.com.unibratec.assistencia.model.dao.ClienteDAO;
 import br.com.unibratec.assistencia.model.dao.EnderecoDAO;
@@ -77,8 +78,14 @@ public class ClienteMB implements Serializable{
 	}
 	
 	@PostConstruct
-	public void atualizaListaClientes() {
-		this.listaClientes = clienteDAO.consultarTodosOsClientes();
+	public void atualizaListaClientes(){
+		try {
+			this.listaClientes = clienteDAO.consultarTodosOsClientes();
+		}catch(Exception e) {
+			e.printStackTrace();
+			Messages.addGlobalInfo("Erro ao tentar listar os clientes!");
+		}
+		
 	}
 	
 	public void inserir() {

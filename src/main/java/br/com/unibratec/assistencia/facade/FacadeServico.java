@@ -21,12 +21,21 @@ public class FacadeServico {
 		try {
 			validarServico(servico);
 			controllerServico.inserir(servico);
-			Messages.addGlobalInfo("Serviço Inserido com sucesso!");
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new DaoException("Erro ao tentar cadastrar o serviço");
 		}
 		
+	}
+	
+	public void mergearServico(Servico servico) throws GeneralException, DaoException {
+		try {
+			validarServico(servico);
+			controllerServico.merge(servico);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException();
+		}
 	}
 	
 }

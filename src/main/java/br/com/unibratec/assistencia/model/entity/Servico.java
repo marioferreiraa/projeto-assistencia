@@ -15,9 +15,9 @@ public class Servico implements IEntidade, Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_cliente")
-	@SequenceGenerator(name="s_codigo_cliente", 
-					   sequenceName="sequence_cliente", 
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_servico")
+	@SequenceGenerator(name="s_codigo_servico", 
+					   sequenceName="sequence_servico", 
 					   initialValue=100,
 					   allocationSize = 1)
 	@Column(name="codigo_servico")
@@ -64,6 +64,14 @@ public class Servico implements IEntidade, Serializable{
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Object getChavePrimaria() {

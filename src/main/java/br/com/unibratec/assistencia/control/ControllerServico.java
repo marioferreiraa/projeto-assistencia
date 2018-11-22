@@ -7,6 +7,8 @@ import br.com.unibratec.assistencia.model.entity.Servico;
 
 public class ControllerServico {
 	
+	ServicoDAO servicoDAO = new ServicoDAO();
+	
 	public void validaNome(String nome) throws GeneralException {
 		if(nome == null || nome.isEmpty()) {
 			throw new GeneralException("O nome do serviço deve ser preenchido!");
@@ -33,11 +35,19 @@ public class ControllerServico {
 	
 	public void inserir(Servico servico) throws DaoException{
 		try {
-			ServicoDAO servicoDAO = new ServicoDAO();
 			servicoDAO.inserir(servico);
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new DaoException("Erro ao tentar inserir o serviço!");
+		}
+	}
+	
+	public void merge(Servico servico) throws DaoException{
+		try {
+			servicoDAO.inserirMerge(servico);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException();
 		}
 	}
 

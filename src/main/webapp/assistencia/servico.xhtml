@@ -16,6 +16,12 @@
 		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet" />
+		<style>
+			.dialog{
+				top: 30%!important;
+    			left: 40%!important;
+			}
+		</style>
 	</h:head>
 	<h:body>
 		<p:growl id="messages"/>
@@ -123,45 +129,37 @@
 						<p:panel header="Clientes - Listagem">		
 							<p:dataTable emptyMessage="Nenhum registro encontrado"
 								paginator="true"	
-								value="#{clienteMB.listaClientes}"
-								var="cliente"
+								value="#{servicoMB.listaServicos}"
+								var="servico"
 								rows="8"
-								id="tabelaClientes">
+								id="tabelaServicos">
 					
 								<f:facet name="header">
 									<p:commandButton value="novo" oncomplete="PF('modalAlterar').show();" 
 													 actionListener="#{clienteMB.novo}" 
-													 update=":formCliente:panelCliente" />
+													 update=":formServico:panelServico" />
 								</f:facet>
-					
-								<p:column headerText="Nome" sortBy="#{cliente.nome}" filterBy="#{cliente.nome}">
-									<h:outputText value="#{cliente.nome}"/>
-								</p:column>
-					
-								<p:column headerText="CPF" filterBy="#{cliente.cpf}">
-									<h:outputText value="#{cliente.cpf}"/>
-								</p:column>
-					
-								<p:column headerText="Telefone">
-									<h:outputText value="#{cliente.telefone}"/>
-								</p:column>
-					
-								<p:column headerText="Email">
-									<h:outputText value="#{cliente.email}"/>
-								</p:column>
 								
-								<p:column headerText="Sexo">
-									<h:outputText value="#{cliente.sexo}"/>
+								<p:column headerText="Id do Servico" sortBy="#{servico.id}">
+									<h:outputText value="#{servico.id}"/>
+								</p:column>
+					
+								<p:column headerText="Nome do Servico" sortBy="#{servico.nome}" filterBy="#{servico.nome}">
+									<h:outputText value="#{servico.nome}"/>
+								</p:column>
+					
+								<p:column headerText="Preço do Servico">
+									<h:outputText value="R$ #{servico.preco}"/>
 								</p:column>
 					
 								<p:column headerText="Ações">
-									<p:commandButton icon="ui-icon-trash" action="#{clienteMB.excluirCliente(cliente)}"
-													 update=":messages :formListagem:tabelaClientes">
+									<p:commandButton icon="ui-icon-trash" action="#{servicoMB.excluirServico(servico)}"
+													 update=":messages :formListagem:tabelaServicos">
 										<p:confirm header="Confirmação?" message="Deseja excluir?" icon="ui-icon-alert"></p:confirm>
 										<!--  f:attribute name="clienteSelecionado" value="cliente"/-->
 									</p:commandButton>
 									
-									<p:commandButton icon="ui-icon-pencil" action="#{clienteMB.alterarDados(cliente)}" update=":messages :formCliente:panelCliente" 
+									<p:commandButton icon="ui-icon-pencil" action="#{servicoMB.alterarServicos(servico)}" update=":messages :formServico:panelServico" 
 													 oncomplete="PF('modalAlterar').show()">
 										<f:attribute name="clienteSelecionado" value="cliente"/>
 									</p:commandButton>
@@ -169,38 +167,30 @@
 					
 							</p:dataTable>
 			
-							<p:confirmDialog global="true">
-								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":messages :formListagem:tabelaClientes"/>
+							<p:confirmDialog global="true" styleClass="dialog">
+								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":messages :formListagem:tabelaServicos"/>
 								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
 							</p:confirmDialog>
 					
 						</p:panel>
 					</h:form>
 		
-					<p:dialog header="Estados - Cadastro" widgetVar="modalAlterar" draggable="false" resizable="false" modal="true">
-						<h:form id="formCliente">
-							<h:panelGrid columns="2" id="panelCliente">
-								<p:outputLabel value="Nome:"/>
-								<p:inputText size="30" maxlength="50" value="#{clienteMB.cliente.nome}"/>
-								
-								<p:outputLabel value="CPF:"></p:outputLabel>
-								<p:inputText size="30" maxlength="11" value="#{clienteMB.cliente.cpf}"/>
-								
-								<p:outputLabel value="Telefone:"></p:outputLabel>
-								<p:inputText size="30" maxlength="11" value="#{clienteMB.cliente.telefone}"/>
-								
-								<p:outputLabel value="Email:"></p:outputLabel>
-								<p:inputText size="30" maxlength="50" value="#{clienteMB.cliente.email}"/>
-								
-								<p:outputLabel value="Sexo:"></p:outputLabel>
-							 	<p:inputText size="30" maxlength="10" value="#{clienteMB.cliente.sexo}"/>
-							 </h:panelGrid>
-							 
-							 			
-							 <h:panelGrid columns="2">
-							 	<p:commandButton value="Salvar" actionListener="#{clienteMB.merge}" update=":messages :formListagem:tabelaClientes :formCliente:panelCliente"/>
+					<p:dialog header="Estados - Cadastro" widgetVar="modalAlterar" draggable="false" resizable="false" modal="true" height="200px" styleClass="dialog">
+						<h:form id="formServico">
+							<div style="margin-top: 30px;">
+								<h:panelGrid columns="2" id="panelServico">
+									<p:outputLabel value="Nome:"/>
+									<p:inputText size="30" maxlength="50" value="#{servicoMB.servico.nome}"/>
+									
+									<p:outputLabel value="preco:"></p:outputLabel>
+									<p:inputText size="30" maxlength="11" value="#{servicoMB.servico.preco}"/>
+								</h:panelGrid>
+							</div>
+							 		
+							 <div style="text-align: center;margin-top: 20px;">
+							 	<p:commandButton value="Salvar" actionListener="#{servicoMB.inserir}" update=":messages :formListagem:tabelaServicos :formServico:panelServico"/>
 							 	<p:commandButton value="Fechar" oncomplete="PF('modalAlterar').hide()"/>
-							 </h:panelGrid>
+							 </div>
 						</h:form>			
 					</p:dialog>
 				</div>
