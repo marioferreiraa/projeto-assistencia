@@ -20,7 +20,7 @@
 					paginator="true"
 					value="#{produtoMB.listaProdutos}"
 					var="produto"
-					rows="4"
+					rows="6"
 					id="tabelaProdutos">
 		
 					<f:facet name="header">
@@ -40,6 +40,15 @@
 					<p:column headerText="Descrição" sortBy="#{produto.descricao}">
 						<h:outputText value="#{produto.descricao}"/>
 					</p:column>
+					
+					<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
+						<h:outputText value="#{produto.quantidade}"/>
+					</p:column>
+					
+					<p:column headerText="Valor" sortBy="#{produto.valor}">
+						<h:outputText value="#{produto.valor}"/>
+					</p:column>
+		
 		
 					<p:column headerText="Acoes">
 						<p:commandButton icon="ui-icon-trash" action="#{produtoMB.excluirProduto(produto)}"
@@ -73,6 +82,12 @@
 					
 					<p:outputLabel value="Descrição"></p:outputLabel>
 					<p:inputText size="30" maxlength="145" value="#{produtoMB.produto.descricao}"/>
+					
+					<p:outputLabel value="Quantidade"></p:outputLabel>
+					<p:inputText size="30" maxlength="145" value="#{produtoMB.produto.quantidade}"/>
+					
+					<p:outputLabel value="Valor"></p:outputLabel>
+					<p:inputText size="30" maxlength="145" value="#{produtoMB.produto.valor}"/>
 					
 				 </h:panelGrid>
 				 
