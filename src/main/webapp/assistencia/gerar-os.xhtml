@@ -6,8 +6,12 @@
 	xmlns:c="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<title>Controle de Servicos</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+		<title>Gerar OS</title>
 		<!-- Bootstrap core CSS-->
 		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- Custom fonts for this template-->
@@ -16,14 +20,32 @@
 		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet" />
-		<style>
-			.dialog{
-				top: 30%!important;
-    			left: 40%!important;
-			}
+		
+		<style type="text/css">
+		    .value {
+		        font-weight: bold;
+		    }
+		     
+		    .ui-datatable {
+		        margin-bottom: 25px
+		    }
+		     
+		    .ui-datatable .ui-datatable-footer {
+		        text-align:left;
+		    }
+		     
+		    .ui-datalist ul {
+		        padding: 0 0 0 10px;
+		        margin: 5px 0;
+		    }
+		     
+		    .ui-datatable .ui-button-icon-only .ui-button-text {
+		        padding: 0;
+		        line-height: 1.2;
+		    }
 		</style>
 	</h:head>
-	<h:body>
+	<h:body id="page-top">
 		<p:growl id="messages"/>
 		<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 			<a class="navbar-brand mr-1" href="index.xhtml">Home</a>
@@ -126,78 +148,132 @@
 					<!-- Breadcrumbs-->
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="#">Serviços</a>
+							<a href="#">Ordem de Serviço</a>
 						</li>
-						<li class="breadcrumb-item active">Controle de Serviços</li>
+						<li class="breadcrumb-item active">Gerar Ordem de Serviço</li>
 					</ol>
-					<h:form id="formListagem">
-						<p:panel header="Serviços - Listagem">		
-							<p:dataTable emptyMessage="Nenhum registro encontrado"
-								paginator="true"	
-								value="#{servicoMB.listaServicos}"
-								var="servico"
-								rows="8"
-								id="tabelaServicos">
-					
-								<f:facet name="header">
-									<p:commandButton value="novo" oncomplete="PF('modalAlterar').show();" 
-													 actionListener="#{clienteMB.novo}" 
-													 update=":formServico:panelServico" />
-								</f:facet>
-								
-								<p:column headerText="Id do Servico" sortBy="#{servico.id}">
-									<h:outputText value="#{servico.id}"/>
-								</p:column>
-					
-								<p:column headerText="Nome do Servico" sortBy="#{servico.nome}" filterBy="#{servico.nome}">
-									<h:outputText value="#{servico.nome}"/>
-								</p:column>
-					
-								<p:column headerText="Preço do Servico">
-									<h:outputText value="R$ #{servico.preco}"/>
-								</p:column>
-					
-								<p:column headerText="Ações">
-									<p:commandButton icon="ui-icon-trash" action="#{servicoMB.excluirServico(servico)}"
-													 update=":messages :formListagem:tabelaServicos">
-										<p:confirm header="Confirmação?" message="Deseja excluir?" icon="ui-icon-alert"></p:confirm>
-										<!--  f:attribute name="clienteSelecionado" value="cliente"/-->
-									</p:commandButton>
+					<div class="gerar-os">
+                        
+                        <h:form id="gerarOS">
+                        
+                        	<h3>Informe a data de inicio e o término do serviço</h3>
+                        	<br/>
+							<p:outputLabel for="dataInicio" value="Data Início:" />
+        					<p:calendar id="dataInicio" value="#{calendarView.date3}" showOn="button" />
+        					<br/>
+        					<p:outputLabel for="dataFim" value="Data Final :" />
+        					<p:calendar id="dataFim" value="#{calendarView.date3}" showOn="button" />			
+						</h:form>
+						
+						<br/>
+						<br/>
+						
+						<h:form id="formListagemCliente">
+                            <p:panel header="Informe o cliente associado à OS">		
+                                <p:dataTable emptyMessage="Nenhum registro encontrado"
+                                    paginator="true"	
+                                    value="#{clienteMB.listaClientes}"
+                                    var="cliente"
+                                    rows="5"
+                                    id="tabelaClientes"
+                                    selection="#{ordemServicoMB.clienteSelecionado}"
+                                    rowKey="#{cliente.id}">
+                        
+                        			<p:column selectionMode="single" style="width:35px;text-align:center"/>
+                        
+                                    <p:column headerText="Nome" sortBy="#{cliente.nome}" filterBy="#{cliente.nome}">
+                                        <h:outputText value="#{cliente.nome}"/>
+                                    </p:column>
+                        
+                                    <p:column headerText="CPF" filterBy="#{cliente.cpf}">
+                                        <h:outputText value="#{cliente.cpf}"/>
+                                    </p:column>
+                        
+                                    <p:column headerText="Telefone">
+                                        <h:outputText value="#{cliente.telefone}"/>
+                                    </p:column>
+                        
+                                    <p:column headerText="Email">
+                                        <h:outputText value="#{cliente.email}"/>
+                                    </p:column>
+                                    
+                                    <p:column headerText="Sexo">
+                                        <h:outputText value="#{cliente.sexo}"/>
+                                    </p:column>
+                                </p:dataTable>                       
+                            </p:panel>
+					    </h:form>
+					    
+					    <br/>
+						<br/>
+						
+						<h:form id="formListagemServico">
+							<p:panel header="Informe os servicos associados à OS">		
+								<p:dataTable emptyMessage="Nenhum registro encontrado"
+									paginator="true"	
+									value="#{servicoMB.listaServicos}"
+									var="servico"
+									rows="5"
+									selection="#{ordemServicoMB.servicosSelecionados}"
+									id="tabelaServicos"
+									rowKey="#{servico.id}">
 									
-									<p:commandButton icon="ui-icon-pencil" action="#{servicoMB.alterarServicos(servico)}" update=":messages :formServico:panelServico" 
-													 oncomplete="PF('modalAlterar').show()">
-										<f:attribute name="clienteSelecionado" value="cliente"/>
-									</p:commandButton>
-								</p:column>
-					
-							</p:dataTable>
-			
-							<p:confirmDialog global="true" styleClass="dialog">
-								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":messages :formListagem:tabelaServicos"/>
-								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-							</p:confirmDialog>
-					
-						</p:panel>
-					</h:form>
-		
-					<p:dialog header="Estados - Cadastro" widgetVar="modalAlterar" draggable="false" resizable="false" modal="true" height="200px" styleClass="dialog">
-						<h:form id="formServico">
-							<div style="margin-top: 30px;">
-								<h:panelGrid columns="2" id="panelServico">
-									<p:outputLabel value="Nome:"/>
-									<p:inputText size="30" maxlength="50" value="#{servicoMB.servico.nome}"/>
+									<p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+															
+									<p:column headerText="Id do Servico" sortBy="#{servico.id}">
+										<h:outputText value="#{servico.id}"/>
+									</p:column>
+						
+									<p:column headerText="Nome do Servico" sortBy="#{servico.nome}" filterBy="#{servico.nome}">
+										<h:outputText value="#{servico.nome}"/>
+									</p:column>
+						
+									<p:column headerText="Preço do Servico">
+										<h:outputText value="R$ #{servico.preco}"/>
+									</p:column>
+						
+								</p:dataTable>
+						
+							</p:panel>
+						</h:form>
+						
+						<br/>
+						<br/>
+						
+						<h:form id="formListagemProduto">
+	
+							<p:panel header="Informe os produtos associados à OS">
+						
+								<p:dataTable emptyMessage="Nenhum registro encontrado"
+									paginator="true"
+									value="#{produtoMB.listaProdutos}"
+									var="produto"
+									rows="4"
+									selection="#{ordemServicoMB.produtosSelecionados}"
+									id="tabelaProdutos"
+									rowKey="#{produto.id}">
 									
-									<p:outputLabel value="preco:"></p:outputLabel>
-									<p:inputText size="30" maxlength="11" value="#{servicoMB.servico.preco}"/>
-								</h:panelGrid>
-							</div>
-							 		
-							 <div style="text-align: center;margin-top: 20px;">
-							 	<p:commandButton value="Salvar" actionListener="#{servicoMB.inserir}" update=":messages :formListagem:tabelaServicos :formServico:panelServico"/>
-							 	<p:commandButton value="Fechar" oncomplete="PF('modalAlterar').hide()"/>
-							 </div>
-						</h:form>			
-					</p:dialog>
+									<p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+						
+									<p:column headerText="Código do Produto" sortBy="#{produto.id}" filterBy="#{produto.id}">
+										<h:outputText value="#{produto.id}"/>
+									</p:column>
+									
+									<p:column headerText="Nome" sortBy="#{produto.nome}" filterBy="#{produto.nome}">
+										<h:outputText value="#{produto.nome}"/>
+									</p:column>
+						
+									<p:column headerText="Descrição" sortBy="#{produto.descricao}">
+										<h:outputText value="#{produto.descricao}"/>
+									</p:column>
+						
+								</p:dataTable>
+						
+							</p:panel>
+						
+						</h:form>
+						
+					</div>
 				</div>
 				<!-- /.container-fluid -->
 				<!-- Sticky Footer -->
@@ -211,31 +287,5 @@
 			</div>
 			<!-- /.content-wrapper -->
 		</div>
-		<!-- /#wrapper -->
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top">
-			<i class="fas fa-angle-up"></i>
-		</a>
-		
-		<!-- Bootstrap core JavaScript-->
-	    <script src="vendor/jquery/jquery.min.js"></script>
-	    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	
-	    <!-- Core plugin JavaScript-->
-	    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-	
-	    <!-- Page level plugin JavaScript-->
-	    <script src="vendor/chart.js/Chart.min.js"></script>
-	    <script src="vendor/datatables/jquery.dataTables.js"></script>
-	    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-	
-	    <!-- Custom scripts for all pages-->
-	    <script src="js/sb-admin.min.js"></script>
-	
-	    <!-- Demo scripts for this page-->
-	    <script src="js/demo/datatables-demo.js"></script>
-	    <script src="js/demo/chart-area-demo.js"></script>
-		<script src="js/script.js"></script>
-		<script src="js/jquery.mask.min.js"></script>
 	</h:body>
 </html>

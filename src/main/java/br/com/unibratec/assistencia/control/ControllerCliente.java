@@ -17,7 +17,7 @@ public class ControllerCliente {
 	 * @param String nome
 	 */
 	public void validaNome(String nome) throws GeneralException{
-		if((nome == null)|| nome.isEmpty()) {
+		if((nome == null) || nome.isEmpty()) {
 			throw new GeneralException("O nome do Cliente não pode ser deixado em branco!");
 		}
 		

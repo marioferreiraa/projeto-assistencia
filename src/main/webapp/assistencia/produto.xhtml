@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<title>Controle de Servicos</title>
+		<title>Cadastrar Cliente</title>
 		<!-- Bootstrap core CSS-->
 		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<!-- Custom fonts for this template-->
@@ -16,12 +16,6 @@
 		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet" />
-		<style>
-			.dialog{
-				top: 30%!important;
-    			left: 40%!important;
-			}
-		</style>
 	</h:head>
 	<h:body>
 		<p:growl id="messages"/>
@@ -126,78 +120,85 @@
 					<!-- Breadcrumbs-->
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="#">Serviços</a>
+							<a href="#">Produtos</a>
 						</li>
-						<li class="breadcrumb-item active">Controle de Serviços</li>
+						<li class="breadcrumb-item active">Controle de Produtos</li>
 					</ol>
-					<h:form id="formListagem">
-						<p:panel header="Serviços - Listagem">		
-							<p:dataTable emptyMessage="Nenhum registro encontrado"
-								paginator="true"	
-								value="#{servicoMB.listaServicos}"
-								var="servico"
-								rows="8"
-								id="tabelaServicos">
-					
-								<f:facet name="header">
-									<p:commandButton value="novo" oncomplete="PF('modalAlterar').show();" 
-													 actionListener="#{clienteMB.novo}" 
-													 update=":formServico:panelServico" />
-								</f:facet>
-								
-								<p:column headerText="Id do Servico" sortBy="#{servico.id}">
-									<h:outputText value="#{servico.id}"/>
-								</p:column>
-					
-								<p:column headerText="Nome do Servico" sortBy="#{servico.nome}" filterBy="#{servico.nome}">
-									<h:outputText value="#{servico.nome}"/>
-								</p:column>
-					
-								<p:column headerText="Preço do Servico">
-									<h:outputText value="R$ #{servico.preco}"/>
-								</p:column>
-					
-								<p:column headerText="Ações">
-									<p:commandButton icon="ui-icon-trash" action="#{servicoMB.excluirServico(servico)}"
-													 update=":messages :formListagem:tabelaServicos">
-										<p:confirm header="Confirmação?" message="Deseja excluir?" icon="ui-icon-alert"></p:confirm>
-										<!--  f:attribute name="clienteSelecionado" value="cliente"/-->
-									</p:commandButton>
+					<div class="cadastro-produtos">
+						<div class="dados-basicos">
+							<h:form id="formListagem">
+	
+								<p:panel header="Produtos - Listagem">
+							
+									<p:dataTable emptyMessage="Nenhum registro encontrado"
+										paginator="true"
+										value="#{produtoMB.listaProdutos}"
+										var="produto"
+										rows="4"
+										id="tabelaProdutos">
+							
+										<f:facet name="header">
+											<p:commandButton value="novo" oncomplete="PF('modalCadastro').show();" 
+															 actionListener="#{produtoMB.novo}" 
+															 update=":formProduto:panelProduto" />
+										</f:facet>
+							
+										<p:column headerText="Código do Produto" sortBy="#{produto.id}" filterBy="#{produto.id}">
+											<h:outputText value="#{produto.id}"/>
+										</p:column>
+										
+										<p:column headerText="Nome" sortBy="#{produto.nome}" filterBy="#{produto.nome}">
+											<h:outputText value="#{produto.nome}"/>
+										</p:column>
+							
+										<p:column headerText="Descrição" sortBy="#{produto.descricao}">
+											<h:outputText value="#{produto.descricao}"/>
+										</p:column>
+							
+										<p:column headerText="Acoes">
+											<p:commandButton icon="ui-icon-trash" action="#{produtoMB.excluirProduto(produto)}"
+															 update="messages">
+												<p:confirm header="Confirmação?" message="Deseja excluir?" icon="ui-icon-alert"></p:confirm>
+												<!--  f:attribute name="produtoSelecionado" value="produto"/-->
+											</p:commandButton>
+											
+											<p:commandButton icon="ui-icon-pencil" action="#{produtoMB.alterarDados(produto)}" update=":messages :formProduto:panelProduto" 
+															 oncomplete="PF('modalCadastro').show()">
+												<f:attribute name="produtoSelecionado" value="produto"/>
+											</p:commandButton>
+										</p:column>
+							
+									</p:dataTable>
 									
-									<p:commandButton icon="ui-icon-pencil" action="#{servicoMB.alterarServicos(servico)}" update=":messages :formServico:panelServico" 
-													 oncomplete="PF('modalAlterar').show()">
-										<f:attribute name="clienteSelecionado" value="cliente"/>
-									</p:commandButton>
-								</p:column>
-					
-							</p:dataTable>
-			
-							<p:confirmDialog global="true" styleClass="dialog">
-								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":messages :formListagem:tabelaServicos"/>
-								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-							</p:confirmDialog>
-					
-						</p:panel>
-					</h:form>
-		
-					<p:dialog header="Estados - Cadastro" widgetVar="modalAlterar" draggable="false" resizable="false" modal="true" height="200px" styleClass="dialog">
-						<h:form id="formServico">
-							<div style="margin-top: 30px;">
-								<h:panelGrid columns="2" id="panelServico">
-									<p:outputLabel value="Nome:"/>
-									<p:inputText size="30" maxlength="50" value="#{servicoMB.servico.nome}"/>
-									
-									<p:outputLabel value="preco:"></p:outputLabel>
-									<p:inputText size="30" maxlength="11" value="#{servicoMB.servico.preco}"/>
-								</h:panelGrid>
-							</div>
-							 		
-							 <div style="text-align: center;margin-top: 20px;">
-							 	<p:commandButton value="Salvar" actionListener="#{servicoMB.inserir}" update=":messages :formListagem:tabelaServicos :formServico:panelServico"/>
-							 	<p:commandButton value="Fechar" oncomplete="PF('modalAlterar').hide()"/>
-							 </div>
-						</h:form>			
-					</p:dialog>
+									<p:confirmDialog global="true">
+										<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+										<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+									</p:confirmDialog>
+							
+								</p:panel>
+							
+							</h:form>
+							
+							<p:dialog header="Cadastro - Produto" widgetVar="modalCadastro" draggable="false" resizable="false" modal="true">
+								<h:form id="formProduto">
+									<h:panelGrid columns="2" id="panelProduto">
+										<p:outputLabel value="Nome:"/>
+										<p:inputText size="30" maxlength="50" value="#{produtoMB.produto.nome}"/>
+										
+										<p:outputLabel value="Descrição"></p:outputLabel>
+										<p:inputText size="30" maxlength="145" value="#{produtoMB.produto.descricao}"/>
+										
+									 </h:panelGrid>
+									 
+									 			
+									 <h:panelGrid columns="2">
+									 	<p:commandButton value="Salvar" actionListener="#{produtoMB.inserir}" update=":messages :formListagem:tabelaProdutos :formProduto:panelProduto"/>
+									 	<p:commandButton value="Fechar" oncomplete="PF('modalCadastro').hide()"/>
+									 </h:panelGrid>
+								</h:form>			
+							</p:dialog>
+						</div>
+					</div>
 				</div>
 				<!-- /.container-fluid -->
 				<!-- Sticky Footer -->
@@ -220,21 +221,6 @@
 		<!-- Bootstrap core JavaScript-->
 	    <script src="vendor/jquery/jquery.min.js"></script>
 	    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	
-	    <!-- Core plugin JavaScript-->
-	    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-	
-	    <!-- Page level plugin JavaScript-->
-	    <script src="vendor/chart.js/Chart.min.js"></script>
-	    <script src="vendor/datatables/jquery.dataTables.js"></script>
-	    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-	
-	    <!-- Custom scripts for all pages-->
-	    <script src="js/sb-admin.min.js"></script>
-	
-	    <!-- Demo scripts for this page-->
-	    <script src="js/demo/datatables-demo.js"></script>
-	    <script src="js/demo/chart-area-demo.js"></script>
 		<script src="js/script.js"></script>
 		<script src="js/jquery.mask.min.js"></script>
 	</h:body>
