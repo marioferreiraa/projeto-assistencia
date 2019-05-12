@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<h:title>Teste spinner</h:title>
+</h:head>
+<h:body>
+	<h:form>
+	<h:panelGrid>
+		<h:outputLabel for="ajaxSpinner" value="Ajax Spinner: " />
+        <p:outputPanel>
+            <p:spinner id="ajaxSpinner" value="#{clienteMB.spinner}" min="0">
+                <p:ajax update="ajaxSpinnerValue" process="@this" />
+            </p:spinner>
+            <h:outputText id="ajaxSpinnerValue" value="#{clienteMB.atualValor}" style="padding-left: 10px" />
+        </p:outputPanel>
+	</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

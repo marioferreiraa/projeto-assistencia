@@ -153,22 +153,22 @@
 						<li class="breadcrumb-item active">Gerar Ordem de Serviço</li>
 					</ol>
 					<div class="gerar-os">
-                        
-                        <h:form id="gerarOS">
-                        
-                        	<h3>Informe a data de inicio e o término do serviço</h3>
+						
+						<h:form id="formOrdemServico">
+						
+							<h3>Informe a data de inicio e o término do serviço</h3>
                         	<br/>
 							<p:outputLabel for="dataInicio" value="Data Início:" />
-        					<p:calendar id="dataInicio" value="#{calendarView.date3}" showOn="button" />
+        					<p:calendar id="dataInicio" value="#{ordemServicoMB.ordemServico.dataIniString}" showOn="button" converter="calendarConverter" pattern="dd/MM/yyyy">
+        						<!-- f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-3" locale="pt_BR" /> -->
+        					</p:calendar>
         					<br/>
         					<p:outputLabel for="dataFim" value="Data Final :" />
-        					<p:calendar id="dataFim" value="#{calendarView.date3}" showOn="button" />			
-						</h:form>
+        					<p:calendar id="dataFim" value="#{ordemServicoMB.ordemServico.dataFimString}" showOn="button" converter="calendarConverter" pattern="dd/MM/yyyy" />
 						
-						<br/>
-						<br/>
+							<br/>
+							<br/>
 						
-						<h:form id="formListagemCliente">
                             <p:panel header="Informe o cliente associado à OS">		
                                 <p:dataTable emptyMessage="Nenhum registro encontrado"
                                     paginator="true"	
@@ -202,12 +202,10 @@
                                     </p:column>
                                 </p:dataTable>                       
                             </p:panel>
-					    </h:form>
-					    
-					    <br/>
-						<br/>
-						
-						<h:form id="formListagemServico">
+                        
+                        	<br/>
+							<br/>
+							
 							<p:panel header="Informe os servicos associados à OS">		
 								<p:dataTable emptyMessage="Nenhum registro encontrado"
 									paginator="true"	
@@ -233,15 +231,11 @@
 									</p:column>
 						
 								</p:dataTable>
-						
 							</p:panel>
-						</h:form>
-						
-						<br/>
-						<br/>
-						
-						<h:form id="formListagemProduto">
-	
+							
+							<br/>
+							<br/>
+							
 							<p:panel header="Informe os produtos associados à OS">
 						
 								<p:dataTable emptyMessage="Nenhum registro encontrado"
@@ -270,9 +264,14 @@
 								</p:dataTable>
 						
 							</p:panel>
-						
-						</h:form>
-						
+							
+							<br/>
+							<br/>
+							
+                            <p:commandButton value="Salvar" actionListener="#{ordemServicoMB.inserir}" update=":messages" styleClass="btn button-salvar"/>
+					   
+					    </h:form>
+								
 					</div>
 				</div>
 				<!-- /.container-fluid -->

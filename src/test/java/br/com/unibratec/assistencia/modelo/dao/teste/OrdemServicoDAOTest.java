@@ -3,6 +3,7 @@ package br.com.unibratec.assistencia.modelo.dao.teste;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -24,13 +25,16 @@ import br.com.unibratec.assistencia.model.entity.Servico;;
 public class OrdemServicoDAOTest {
 	
 	@Test
-	public void gerarOrdemServico() {
+	public void gerarOrdemServico() throws ParseException {
 		List<Servico> listaServicos = new ArrayList<Servico>();
 		List<Produto> listaProdutos = new ArrayList<Produto>();
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		ServicoDAO servicoDAO = new ServicoDAO();
 		OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
-		ClienteDAO clienteDAO = new ClienteDAO();		
+		ClienteDAO clienteDAO = new ClienteDAO();	
+		
+		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formBD = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Produto p = new Produto();
 		p.setDescricao("Windows 10");
@@ -55,10 +59,9 @@ public class OrdemServicoDAOTest {
 		servicoDAO.inserir(s2);
 		listaServicos.add(s2);
 		
-		@SuppressWarnings("deprecation")
-		Date dateInicio = new Date(2018, 11, 22);
-		@SuppressWarnings("deprecation")
-		Date dateFim = new Date(2018, 11, 25);
+		
+		String dataInicio = "2018-11-21";
+		String dataFim = "2018-11-25";
 		
 		try {
 		
@@ -67,10 +70,10 @@ public class OrdemServicoDAOTest {
 			ordemServico.setListaProdutos(listaProdutos);
 			ordemServico.setListaServicos(listaServicos);
 			ordemServico.setPreco(200.0);
-			ordemServico.setDataInicio(dateInicio);
-			ordemServico.setDataFim(dateFim);
+			ordemServico.setDataInicio(java.sql.Date.valueOf(dataInicio));
+			ordemServico.setDataFim(java.sql.Date.valueOf(dataFim));
 			
-			ordemServicoDAO.inserir(ordemServico);
+			ordemServicoDAO.inserirMerge(ordemServico);
 			
 		}catch (Exception e) {
 			e.printStackTrace();

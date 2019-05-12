@@ -1,10 +1,14 @@
 package br.com.unibratec.assistencia.control;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.model.dao.OrdemServicoDAO;
+import br.com.unibratec.assistencia.model.entity.Cliente;
+import br.com.unibratec.assistencia.model.entity.OrdemServico;
 import br.com.unibratec.assistencia.model.entity.Produto;
 import br.com.unibratec.assistencia.model.entity.Servico;
 
@@ -15,40 +19,44 @@ public class ControllerOrdemServico {
 	
 	public void validaListas(List<Servico> listaServicos, List<Produto> listaProdutos) throws GeneralException{
 		if(listaServicos == null && listaProdutos == null) {
-			throw new GeneralException("Precisa ser informado algum tipo de serviço prestado");
+			throw new GeneralException("Precisa ser informado algum tipo de serviÃ§o prestado");
 		}
 	}
 	
 	public void validaPreco(double preco) throws GeneralException{
 		if(preco <= 0.0) {
-			throw new GeneralException("O preço informado é inválido");
+			throw new GeneralException("O preÃ§o informado Ã© invÃ¡lido");
 		}
 	}
 	
-	public void validaDataInicio(Date dataInicio, Date dataFim) throws GeneralException {
+	public void validaData(Date dIni, Date dFim) throws GeneralException{
+		
 		Date today = new Date();
 		
-		if(dataInicio.before(today)) {
-			throw new GeneralException("A data inserida como início do serviço não pode ser antes de Hoje!");
+		if(dIni.before(today) || dFim.before(today)) {
+			throw new GeneralException("A data inicial ou final nÃ£o pode ser menor que a data de Hoje!");
 		}
 		
-		if(dataInicio.after(dataFim)) {
-			throw new GeneralException("A data inserida como data do início não pode ser maior que a data final do serviço!");
+		if(dIni.after(dFim)) {
+			throw new GeneralException("A data inicial nÃ£o pode ser maior que a data final!");
 		}
 		
-		if(dataInicio.equals(null)) {
-			throw new GeneralException("A data de inicio deve ser informada");
+		if(dIni.equals(null) || dFim.equals(null)) {
+			throw new GeneralException("Ambas as datas devem ser informadas");
 		}
 	}
 
-	public void validaDataFim(Date dataFim, Date dataInicio) throws GeneralException{
-		Date today = new Date();
-		if(dataFim.before(today) || dataFim.before(dataInicio)) {
-			throw new GeneralException("A data inserida como término do serviço é inválida!");
+	public void validaCliente(Cliente cliente) throws GeneralException{
+		if(cliente == null){
+			throw new GeneralException("Um cliente deve ser anexado Ã  Ordem de ServiÃ§o");
 		}
-		
-		if(dataFim.equals(null)) {
-			throw new GeneralException("A data de inicio deve ser informada");
+	}
+	
+	public void inserirOrdem(OrdemServico ordemServico) throws DaoException, GeneralException{
+		try {
+			osDAO.inserirMerge(ordemServico);
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
 		}
 	}
 

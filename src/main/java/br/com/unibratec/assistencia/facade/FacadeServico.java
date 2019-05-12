@@ -1,14 +1,19 @@
 package br.com.unibratec.assistencia.facade;
 
-import org.omnifaces.util.Messages;
+import java.io.Serializable;
 
 import br.com.unibratec.assistencia.control.ControllerServico;
 import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.model.entity.Servico;
 
-public class FacadeServico {
-
+public class FacadeServico implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	ControllerServico controllerServico = new ControllerServico();
 	
 	public void validarServico(Servico servico) throws GeneralException {
@@ -23,7 +28,7 @@ public class FacadeServico {
 			controllerServico.inserir(servico);
 		}catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException("Erro ao tentar cadastrar o serviço");
+			throw new DaoException("Erro ao tentar cadastrar o serviï¿½o");
 		}
 		
 	}

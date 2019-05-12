@@ -33,6 +33,7 @@ public class Produto implements IEntidade, Serializable {
 	public Integer getId() {
 	return id;
 	}
+	
 	@Column(name="nome_produto", length=50)
 	private String nome;
 	
@@ -43,6 +44,7 @@ public class Produto implements IEntidade, Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	@Column(name="descricao_produto", length=150)
 	private String descricao;
 	
@@ -53,6 +55,7 @@ public class Produto implements IEntidade, Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 	@Column(name="quantidade_produto")
 	private Integer quantidade;
 	
@@ -63,6 +66,7 @@ public class Produto implements IEntidade, Serializable {
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
+	
 	@Column(name="valor_produto")
 	private Double valor;
 	

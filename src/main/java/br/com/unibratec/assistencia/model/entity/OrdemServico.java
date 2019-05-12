@@ -2,6 +2,7 @@ package br.com.unibratec.assistencia.model.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -40,10 +41,13 @@ public class OrdemServico implements IEntidade, Serializable{
 	private Double preco;
 	
 	@Column(name="data_inicio_servico")
-	private Date dataInicio;
+	private java.sql.Date dataInicio;
 	
 	@Column(name="data_entrega_servico")
-	private Date dataFim;
+	private java.sql.Date dataFim;
+	
+	private Calendar dataIniString;
+	private Calendar dataFimString;
 	
 	public Integer getId() {
 		return id;
@@ -77,19 +81,19 @@ public class OrdemServico implements IEntidade, Serializable{
 		this.preco = preco;
 	}
 
-	public Date getDataInicio() {
+	public java.sql.Date getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(java.sql.Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataFim() {
+	public java.sql.Date getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(java.sql.Date dataFim) {
 		this.dataFim = dataFim;
 	}
 
@@ -99,6 +103,22 @@ public class OrdemServico implements IEntidade, Serializable{
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Calendar getDataIniString() {
+		return dataIniString;
+	}
+
+	public void setDataIniString(Calendar dataIniString) {
+		this.dataIniString = dataIniString;
+	}
+
+	public Calendar getDataFimString() {
+		return dataFimString;
+	}
+
+	public void setDataFimString(Calendar dataFimString) {
+		this.dataFimString = dataFimString;
 	}
 
 	public Object getChavePrimaria() {

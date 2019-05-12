@@ -7,6 +7,9 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.com.unibratec.assistencia.exceptions.DaoException;
+import br.com.unibratec.assistencia.exceptions.GeneralException;
+import br.com.unibratec.assistencia.facade.FacadeProduto;
 import br.com.unibratec.assistencia.model.dao.ProdutoDAO;
 import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.Produto;
@@ -23,8 +26,9 @@ public class ProdutoMB implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Produto produto;
+	Produto produto = new Produto();
 	ProdutoDAO produtoDAO = new ProdutoDAO();
+	FacadeProduto fp = new FacadeProduto();
 	
 	List<Produto> listaProdutos;
 	
@@ -52,14 +56,16 @@ public class ProdutoMB implements Serializable{
 	public void novo() {
 		produto = new Produto();
 	}
-	public void inserir() {
-		
-		if(this.produto != null) {
-			
-			produtoDAO.inserirMerge(this.produto);
-			
-			atualizaListaProdutos();
+	public void inserir(){
+		try{
+			System.out.println(produto.getValor());
+			fp.inserirProduto(produto);
+			novo();
+		}catch(Exception e){
+			Messages.addGlobalInfo("Erro ao tentar inserir o cliente");
+			e.printStackTrace();
 		}
+		
 	}
 	public void excluirProduto(Produto produto) {
 		produtoDAO.excluirPorObjeto(produto);

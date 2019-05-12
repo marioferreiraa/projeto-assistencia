@@ -85,7 +85,6 @@ public class ClienteMB implements Serializable{
 			e.printStackTrace();
 			Messages.addGlobalInfo("Erro ao tentar listar os clientes!");
 		}
-		
 	}
 	
 	public void inserir() {
@@ -108,7 +107,7 @@ public class ClienteMB implements Serializable{
 			atualizaListaClientes();
 			Messages.addGlobalInfo("Cliente Deletado com sucesso");
 		}catch(Exception e) {
-			Messages.addGlobalError("Não foi possivel deletar o cliente!");
+			Messages.addGlobalError("Nï¿½o foi possivel deletar o cliente!");
 		}
 	}
 	
@@ -121,9 +120,9 @@ public class ClienteMB implements Serializable{
 	public void merge() {
 		try {
 			clienteDAO.inserirMerge(cliente);
-			Messages.addGlobalInfo("Alteração realizada com sucesso!");
+			Messages.addGlobalInfo("AlteraÃ§Ã£o realizada com sucesso!");
 		}catch(Exception e) {
-			Messages.addGlobalError("Não foi possível realizar a alteração");
+			Messages.addGlobalError("NÃ£o foi possÃ­vel realizar a alteraÃ§Ã£o");
 		}
 	}
 	

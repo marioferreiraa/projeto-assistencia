@@ -9,7 +9,7 @@ public class ServicoDAOTest {
 	
 	@Test
 	public void testInserirServico() {
-		Servico servico = new Servico("Formatação de micro",100.0);
+		Servico servico = new Servico("FormataÃ§Ã£o de micro",100.0);
 		ServicoDAO servicoDAO = new ServicoDAO();
 		servicoDAO.inserir(servico);
 	}

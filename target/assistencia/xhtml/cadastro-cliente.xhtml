@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="awesome" name="./all.css"></h:outputStylesheet>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"/>
+	<title>Cadastro de Clientes</title>
+</h:head>
+<h:body>
+	<h:form id="form1">
+		<p:growl id="mensagem" />
+		<h:panelGrid columns="2">
+			Nome: <p:inputText value="#{clienteMB.cliente.nome}" />
+			CPF: <p:inputText value="#{clienteMB.cliente.cpf}" />
+			Telefone: <p:inputText value="#{clienteMB.cliente.telefone}" />
+			Email: <p:inputText value="#{clienteMB.cliente.email}" />
+			Sexo: <p:inputText value="#{clienteMB.cliente.sexo}" />
+		</h:panelGrid>
+			<br/>
+			<h5>Dados de Endereço</h5>
+			<br/>
+		<h:panelGrid columns="2">
+			Rua: <p:inputText value="#{clienteMB.endereco.rua}" />
+			Cep: <p:inputText value="#{clienteMB.endereco.cep}" />
+			Bairro: <p:inputText value="#{clienteMB.endereco.bairro}" />
+			Cidade: <p:inputText value="#{clienteMB.endereco.cidade}" />
+			Complemento: <p:inputText value="#{clienteMB.endereco.complemento}" />
+			Numero: <p:inputText value="#{clienteMB.endereco.numero}" />
+			<br/><br/>
+			Botão: <p:commandButton value="Cadastrar" action="#{clienteMB.inserir}" icon="fa fa-save" update="tabelaCliente" ajax="false">
+				   </p:commandButton>		
+		</h:panelGrid>
+	
+		<h2>Lista de Clientes Cadastrados</h2>
+		
+		<p:dataTable value="#{clienteMB.listaClientes}" var="cliente" border="1" id="tabelaCliente">
+			
+			<p:column headerText="Nome">
+				#{cliente.nome}
+			</p:column>
+			
+			<p:column headerText="CPF">
+				#{cliente.cpf}
+			</p:column>
+			
+			<p:column headerText="Telefone">
+				#{cliente.telefone}
+			</p:column>
+			
+			<p:column headerText="Email">
+				#{cliente.email}
+			</p:column>
+			
+			<p:column headerText="Ações">
+				<p:commandButton icon="ui-icon-trash" actionListener="{clienteMB.deletarCliente()}">
+					<f:setPropertyActionListener name="clienteSelecionado" target="#{clienteMB.clienteSelecionado}" value="#{cliente}"></f:setPropertyActionListener>
+				</p:commandButton>
+				<p:commandLink value="excluir" action="clienteMB.excluirCliente(cliente)"></p:commandLink>
+			</p:column>
+			
+		</p:dataTable>
+	
+	</h:form>
+</h:body>
+</html>
