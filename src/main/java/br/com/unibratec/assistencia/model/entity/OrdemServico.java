@@ -1,8 +1,8 @@
 package br.com.unibratec.assistencia.model.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -41,10 +41,10 @@ public class OrdemServico implements IEntidade, Serializable{
 	private Double preco;
 	
 	@Column(name="data_inicio_servico")
-	private java.sql.Date dataInicio;
+	private Date dataInicio;
 	
 	@Column(name="data_entrega_servico")
-	private java.sql.Date dataFim;
+	private Date dataFim;
 	
 	private Calendar dataIniString;
 	private Calendar dataFimString;
@@ -81,19 +81,19 @@ public class OrdemServico implements IEntidade, Serializable{
 		this.preco = preco;
 	}
 
-	public java.sql.Date getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(java.sql.Date dataInicio) {
+	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public java.sql.Date getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(java.sql.Date dataFim) {
+	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
 

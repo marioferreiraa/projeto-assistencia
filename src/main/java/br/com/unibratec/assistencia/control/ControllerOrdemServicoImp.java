@@ -1,11 +1,12 @@
 package br.com.unibratec.assistencia.control;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.unibratec.assistencia.control.imp.ControllerOrdemServico;
 import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.exceptions.GeneralException;
+import br.com.unibratec.assistencia.helper.CollectionUtils;
 import br.com.unibratec.assistencia.model.dao.OrdemServicoDAO;
 import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.OrdemServico;
@@ -13,12 +14,12 @@ import br.com.unibratec.assistencia.model.entity.Produto;
 import br.com.unibratec.assistencia.model.entity.Servico;
 
 
-public class ControllerOrdemServico {
+public class ControllerOrdemServicoImp implements ControllerOrdemServico {
 	
 	OrdemServicoDAO osDAO = new OrdemServicoDAO();
 	
 	public void validaListas(List<Servico> listaServicos, List<Produto> listaProdutos) throws GeneralException{
-		if(listaServicos == null && listaProdutos == null) {
+		if(CollectionUtils.isNullOrEmpty(listaServicos) && CollectionUtils.isNullOrEmpty(listaProdutos)) {
 			throw new GeneralException("Precisa ser informado algum tipo de serviço prestado");
 		}
 	}
@@ -43,6 +44,10 @@ public class ControllerOrdemServico {
 		
 		if(dIni.equals(null) || dFim.equals(null)) {
 			throw new GeneralException("Ambas as datas devem ser informadas");
+		}
+		
+		if(dIni.after(today) || dFim.after(today)) {
+			throw new GeneralException("A data inicial ou final não pode ser futura!");
 		}
 	}
 
