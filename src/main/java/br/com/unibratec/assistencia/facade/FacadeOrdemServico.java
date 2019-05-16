@@ -5,14 +5,14 @@ import java.util.Date;
 
 import org.omnifaces.util.Messages;
 
-import br.com.unibratec.assistencia.control.ControllerOrdemServico;
+import br.com.unibratec.assistencia.control.ControllerOrdemServicoImp;
 import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.model.entity.OrdemServico;
 
 public class FacadeOrdemServico {
 	
-	ControllerOrdemServico cOS = new ControllerOrdemServico();
+	ControllerOrdemServicoImp cOS = new ControllerOrdemServicoImp();
 	
 	public void validarOs(OrdemServico os) throws GeneralException{
 		cOS.validaPreco(os.getPreco());

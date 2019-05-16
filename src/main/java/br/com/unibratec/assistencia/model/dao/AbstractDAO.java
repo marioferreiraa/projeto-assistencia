@@ -15,13 +15,11 @@ public abstract class AbstractDAO<T> implements InterfaceDAO<T> {
 		pEM.getTransaction().begin();
 		
 		pEM.persist(pEntidade);
-		
 		pEM.getTransaction().commit();
 		
 		if(pFecharEM) {
 			pEM.close();
 		}
-		
 	}
 	
 	public T inserirMerge(T pEntidade) {
