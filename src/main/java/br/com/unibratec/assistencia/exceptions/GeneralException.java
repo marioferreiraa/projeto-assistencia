@@ -5,12 +5,12 @@ import org.omnifaces.util.Messages;
 public class GeneralException extends Exception{
 	
 	/*
-	 * SerializaÁ„o genÈrica.
+	 * Serializa√ß√£o gen√©rica.
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * Construtor padr„o vazio.
+	 * Construtor padr√£o vazio.
 	 */
 	public GeneralException(){
 	}
@@ -28,7 +28,8 @@ public class GeneralException extends Exception{
 	 * @param String msg
 	 */
 	public GeneralException(String msg) {
-		Messages.addGlobalError(msg);
+		super(msg);
+		//Messages.addGlobalError(msg);
 	}
 	
 }

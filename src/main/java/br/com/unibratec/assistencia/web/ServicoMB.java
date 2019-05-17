@@ -32,7 +32,7 @@ public class ServicoMB implements Serializable{
 			this.listaServicos = servicoDAO.consultarTodosOsServicos();
 		}catch(Exception e) {
 			e.printStackTrace();
-			Messages.addGlobalError("Erro ao tentar listar os serviços");
+			Messages.addGlobalError("Erro ao tentar listar os serviÃ§os");
 		}
 	}
 	
@@ -46,17 +46,17 @@ public class ServicoMB implements Serializable{
 			try {
 				if(servico.getChavePrimaria() == null) {
 					fachadaServico.inserirServico(servico);
-					msg = "Serviço inserido com sucesso!";
+					msg = "Serviï¿½o inserido com sucesso!";
 				}else {
 					fachadaServico.mergearServico(servico);
-					msg = "Serviço alterados com sucesso!";
+					msg = "Serviï¿½o alterados com sucesso!";
 				}
 				novo();
 				Messages.addGlobalInfo(msg);
 				atualizaListaServicos();
 			}catch (Exception e) {
 				e.printStackTrace();
-				Messages.addGlobalError("Erro ao tentar inserir o serviço no banco!");
+				Messages.addGlobalError("Erro ao tentar inserir o serviÃ§o no banco!");
 			}
 		}
 	}
@@ -68,7 +68,7 @@ public class ServicoMB implements Serializable{
 			Messages.addGlobalInfo("Servico Deletado com sucesso");
 		}catch (Exception e) {
 			e.printStackTrace();
-			Messages.addGlobalError("Erro ao tentar deletar o serviço!");
+			Messages.addGlobalError("Erro ao tentar deletar o serviÃ§o!");
 		}
 	}
 	
@@ -81,10 +81,10 @@ public class ServicoMB implements Serializable{
 	public void merge() {
 		try {
 			servicoDAO.inserirMerge(servico);
-			Messages.addGlobalInfo("Alteração realizada com sucesso!");
+			Messages.addGlobalInfo("AlteraÃ§Ã£o realizada com sucesso!");
 		}catch (Exception e) {
 			e.printStackTrace();
-			Messages.addGlobalError("Erro ao tentar alterar o serviço!");
+			Messages.addGlobalError("Erro ao tentar alterar o serviÃ§o!");
 		}
 	}
 

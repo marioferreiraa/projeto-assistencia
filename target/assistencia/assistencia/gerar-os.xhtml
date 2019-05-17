@@ -159,10 +159,12 @@
 							<h3>Informe a data de inicio e o término do serviço</h3>
                         	<br/>
 							<p:outputLabel for="dataInicio" value="Data Início:" />
-        					<p:calendar id="dataInicio" value="#{ordemServicoMB.os.dataInicio}" showOn="button" />
+        					<p:calendar id="dataInicio" value="#{ordemServicoMB.ordemServico.dataIniString}" showOn="button" converter="calendarConverter" pattern="dd/MM/yyyy">
+        						<!-- f:convertDateTime pattern="yyyy-MM-dd" timeZone="GMT-3" locale="pt_BR" /> -->
+        					</p:calendar>
         					<br/>
         					<p:outputLabel for="dataFim" value="Data Final :" />
-        					<p:calendar id="dataFim" value="#{ordemServicoMB.os.dataFim}" showOn="button" />
+        					<p:calendar id="dataFim" value="#{ordemServicoMB.ordemServico.dataFimString}" showOn="button" converter="calendarConverter" pattern="dd/MM/yyyy" />
 						
 							<br/>
 							<br/>

@@ -11,7 +11,7 @@ public class ControllerServico {
 	
 	public void validaNome(String nome) throws GeneralException {
 		if(nome == null || nome.isEmpty()) {
-			throw new GeneralException("O nome do serviÁo deve ser preenchido!");
+			throw new GeneralException("O nome do servi√ßo deve ser preenchido!");
 		}
 	}
 	
@@ -22,14 +22,14 @@ public class ControllerServico {
 		try {
 			novoPreco = Double.parseDouble(preco);
 		}catch(NumberFormatException e) {
-			throw new GeneralException("O formato do preÁo È inv·lido!");
+			throw new GeneralException("O formato do pre√ßo √© inv√°lido!");
 		}
 		return novoPreco;
 	}*/
 	
 	public void validaPreco(Double preco) throws GeneralException{
 		if(preco == null) {
-			throw new GeneralException("O preÁo do serviÁo deve ser preenchido!");
+			throw new GeneralException("O pre√ßo do servi√ßo deve ser preenchido!");
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class ControllerServico {
 			servicoDAO.inserir(servico);
 		}catch(Exception e) {
 			e.printStackTrace();
-			throw new DaoException("Erro ao tentar inserir o serviÁo!");
+			throw new DaoException("Erro ao tentar inserir o servi√ßo!");
 		}
 	}
 	

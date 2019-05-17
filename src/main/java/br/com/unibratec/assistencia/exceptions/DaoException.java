@@ -5,12 +5,12 @@ import org.omnifaces.util.Messages;
 public class DaoException extends Exception{
 
 	/*
-	 * SerializaÁ„o genÈrica.
+	 * Serializa√ß√£o gen√©rica.
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * Construtor padr„o vazio.
+	 * Construtor padr√£o vazio.
 	 */
 	public DaoException(){}
 	
