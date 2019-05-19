@@ -5,15 +5,20 @@ import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.model.dao.ServicoDAO;
 import br.com.unibratec.assistencia.model.entity.Servico;
 
-public class ControllerServico {
+public class ControllerServicoImp {
 	
 	ServicoDAO servicoDAO = new ServicoDAO();
 	
 	public void validaNome(String nome) throws GeneralException {
-		if(nome == null || nome.isEmpty()) {
-			throw new GeneralException("O nome do serviÃ§o deve ser preenchido!");
+		if(nome == null || nome.isEmpty() || nome == "") {
+			throw new GeneralException("O nome do serviço deve ser preenchido!");
+		}
+		
+		if(nome.length() < 5) {
+			throw new GeneralException("Favor inserir nome de serviço correto. O nome digitado está muito curto!");
 		}
 	}
+	
 	
 	/*public Double converterPreco(String preco) throws GeneralException{
 		
@@ -29,7 +34,7 @@ public class ControllerServico {
 	
 	public void validaPreco(Double preco) throws GeneralException{
 		if(preco == null) {
-			throw new GeneralException("O preÃ§o do serviÃ§o deve ser preenchido!");
+			throw new GeneralException("O preço do serviço deve ser preenchido!");
 		}
 	}
 	
@@ -38,7 +43,7 @@ public class ControllerServico {
 			servicoDAO.inserir(servico);
 		}catch(Exception e) {
 			e.printStackTrace();
-			throw new DaoException("Erro ao tentar inserir o serviÃ§o!");
+			throw new DaoException("Erro ao tentar inserir o serviço!");
 		}
 	}
 	
