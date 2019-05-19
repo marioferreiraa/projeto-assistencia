@@ -13,14 +13,15 @@ EnderecoDAO enderecoDAO = new EnderecoDAO();
 		return cep.replaceAll(".-", "");
 	}
 	
-	public void validaCep(String cep) throws GeneralException {
+	public String validaCep(String cep) throws GeneralException {
 		if(cep == null || cep.isEmpty()) {
 			throw new GeneralException("O cep não pode ser deixado em branco!");
 		}
-		
-		if(cep.length() > 8) {
+		cep = this.converteCep(cep);
+		if(cep.length() != 8) {
 			throw new GeneralException("Formato Inválido para o CEP!");
 		}
+		return cep;
 	}
 	
 	public void validaRua(String rua) throws GeneralException{
@@ -35,10 +36,11 @@ EnderecoDAO enderecoDAO = new EnderecoDAO();
 		}
 	}
 	
-	public void validaComplemento(String complemento) throws GeneralException{
+	public String validaComplemento(String complemento) throws GeneralException{
 		if(complemento == null || complemento.isEmpty()) {
-			throw new GeneralException("O campo complemento não pode ser deixado em branco!");
+			return "S/C";
 		}
+		return complemento;
 	}
 	
 	public void validaNumero(String numero) throws GeneralException{

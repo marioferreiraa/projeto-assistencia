@@ -26,12 +26,12 @@ public class FacadeClienteEndereco {
 	}
 	
 	public void validarEndereco(Endereco endereco) throws GeneralException, DaoException {
-		endereco.setCep(controllerEndereco.converteCep(endereco.getCep()));
-		controllerEndereco.validaCep(endereco.getCep());
+		
+		endereco.setCep(controllerEndereco.validaCep(endereco.getCep()));
 		controllerEndereco.validaRua(endereco.getRua());
 		controllerEndereco.validaBairro(endereco.getBairro());
 		controllerEndereco.validaCidade(endereco.getCidade());
-		controllerEndereco.validaComplemento(endereco.getNumero());
+		endereco.setComplemento(controllerEndereco.validaComplemento(endereco.getComplemento()));
 		controllerEndereco.validaNumero(endereco.getNumero());
 	}
 	
