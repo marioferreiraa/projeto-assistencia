@@ -2,8 +2,8 @@ package br.com.unibratec.assistencia.exceptions;
 
 import org.omnifaces.util.Messages;
 
-public class GeneralException extends Exception{
-	
+public class GeneralException extends Exception {
+
 	/*
 	 * Serialização genérica.
 	 */
@@ -12,24 +12,26 @@ public class GeneralException extends Exception{
 	/*
 	 * Construtor padrão vazio.
 	 */
-	public GeneralException(){
+	public GeneralException() {
 	}
-	
+
 	/*
 	 * Construtor recebendo um Exception e retornando para a classe pai tratar.
+	 * 
 	 * @param Exception e
 	 */
 	public GeneralException(Exception e) {
 		super(e);
 	}
-	
+
 	/*
 	 * Construtor recebendo uma String e enviando para o front JSF.
+	 * 
 	 * @param String msg
 	 */
 	public GeneralException(String msg) {
 		super(msg);
-		//Messages.addGlobalError(msg);
+		// Messages.addGlobalError(msg);
 	}
-	
+
 }

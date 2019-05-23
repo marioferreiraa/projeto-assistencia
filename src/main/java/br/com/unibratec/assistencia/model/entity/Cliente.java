@@ -11,59 +11,56 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Cliente implements IEntidade, Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_cliente")
-	@SequenceGenerator(name="s_codigo_cliente", 
-					   sequenceName="sequence_cliente", 
-					   initialValue=1000,
-					   allocationSize = 1)
-	@Column(name="codigo_cliente")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_codigo_cliente")
+	@SequenceGenerator(name = "s_codigo_cliente", sequenceName = "sequence_cliente", initialValue = 1000, allocationSize = 1)
+	@Column(name = "codigo_cliente")
 	private Integer id;
-	
-	@Column(name="nome_cliente", length=50)
+
+	@Column(name = "nome_cliente", length = 50)
 	private String nome;
-	
-	@Column(name="cpf_cliente", length=11)
+
+	@Column(name = "cpf_cliente", length = 11)
 	private String cpf;
-	
-	@Column(name="telefone_cliente", length=11)
+
+	@Column(name = "telefone_cliente", length = 11)
 	private String telefone;
-	
-	@Column(name="email_cliente", length=50)
+
+	@Column(name = "email_cliente", length = 50)
 	private String email;
-	
-	@Column(name="sexo_cliente", length=10)
+
+	@Column(name = "sexo_cliente", length = 10)
 	private String sexo;
-	
+
 	@OneToOne
 	private Endereco endereco;
-	
+
 	/*
 	 * Construtor padrão
 	 */
 	public Cliente() {
 		super();
 	}
-	
+
 	/*
 	 * Construtor com todos os parametros de cliente
 	 */
-	public Cliente(String nome ,String cpf, String telefone, String email, String sexo) {
-		
+	public Cliente(String nome, String cpf, String telefone, String email, String sexo) {
+
 		this.setCpf(cpf);
 		this.setEmail(email);
 		this.setNome(nome);
 		this.setSexo(sexo);
 		this.setTelefone(telefone);
-		
+
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -71,7 +68,7 @@ public class Cliente implements IEntidade, Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -83,7 +80,7 @@ public class Cliente implements IEntidade, Serializable {
 	public String getCpf() {
 		return cpf;
 	}
-	
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}

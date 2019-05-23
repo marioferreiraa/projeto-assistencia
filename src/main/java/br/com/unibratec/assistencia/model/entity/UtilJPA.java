@@ -6,24 +6,24 @@ import javax.persistence.Persistence;
 
 public class UtilJPA {
 
-private static EntityManagerFactory emf;
-	
+	private static EntityManagerFactory emf;
+
 	public static void createEntityManageFactory() {
-		if (emf == null ) {
+		if (emf == null) {
 			emf = Persistence.createEntityManagerFactory("assistencia");
 		}
 	}
-	
+
 	public static EntityManager getEntityManager() {
-		if(emf==null) {
+		if (emf == null) {
 			createEntityManageFactory();
 		}
-		
+
 		return emf.createEntityManager();
 	}
-	
+
 	public static void closeEntityManagerFactory() {
 		emf.close();
 	}
-	
+
 }

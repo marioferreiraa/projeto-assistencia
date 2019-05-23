@@ -19,8 +19,8 @@ public class TesteMB {
 		System.out.println(data);
 		System.out.println(data.getTime());
 		System.out.println(data.getDate());
-		//System.out.println(data.get);
+		// System.out.println(data.get);
 		this.data = data;
 	}
-	
+
 }

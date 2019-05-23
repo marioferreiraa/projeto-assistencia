@@ -20,65 +20,71 @@ import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class ProdutoMB implements Serializable{
+public class ProdutoMB implements Serializable {
 	/**
-	 *Serial Version UID 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	Produto produto = new Produto();
 	ProdutoDAO produtoDAO = new ProdutoDAO();
 	FacadeProduto fp = new FacadeProduto();
-	
+
 	List<Produto> listaProdutos;
-	
+
 	// Construtores
-	public ProdutoMB() {}
-	
+	public ProdutoMB() {
+	}
+
 	public Produto getProduto() {
 		return produto;
 	}
+
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	public List<Produto> getListaProdutos(){
+
+	public List<Produto> getListaProdutos() {
 		return listaProdutos;
 	}
-	
-	public void setListaProdutos(List<Produto> listaProdutos){
+
+	public void setListaProdutos(List<Produto> listaProdutos) {
 		this.listaProdutos = listaProdutos;
 	}
-	
+
 	@PostConstruct
 	public void atualizaListaProdutos() {
 		this.listaProdutos = produtoDAO.consultarTodosOsProdutos();
 	}
+
 	public void novo() {
 		produto = new Produto();
 	}
-	public void inserir(){
-		try{
+
+	public void inserir() {
+		try {
 			System.out.println(produto.getValor());
 			fp.inserirProduto(produto);
 			novo();
-		}catch(Exception e){
+		} catch (Exception e) {
 			Messages.addGlobalInfo("Erro ao tentar inserir o cliente");
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	public void excluirProduto(Produto produto) {
 		produtoDAO.excluirPorObjeto(produto);
 		atualizaListaProdutos();
 	}
-	
+
 	public void editar(Produto produto) {
 		produtoDAO.excluirPorObjeto(produto);
 		atualizaListaProdutos();
 	}
-	
+
 	public void alterarDados(Produto produto) {
-		if(produto != null) {
+		if (produto != null) {
 			this.produto = produto;
 			System.out.println("inseriu");
 		}

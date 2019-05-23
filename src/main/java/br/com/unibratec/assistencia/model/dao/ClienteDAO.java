@@ -13,19 +13,19 @@ import br.com.unibratec.assistencia.model.entity.UtilJPA;
 public class ClienteDAO extends AbstractDAO<Cliente> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private EntityManager em;
-	
-	public List<Cliente> consultarTodosOsClientes() throws DaoException{
+
+	public List<Cliente> consultarTodosOsClientes() throws DaoException {
 		try {
 			String querySelect = "Select c From Cliente c";
 			TypedQuery<Cliente> typedQuery = UtilJPA.getEntityManager().createQuery(querySelect, Cliente.class);
 			List<Cliente> resultSet = typedQuery.getResultList();
 			return resultSet;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DaoException("Erro ao tentar listar os clientes!");
 		}
-	} 
+	}
 
 }

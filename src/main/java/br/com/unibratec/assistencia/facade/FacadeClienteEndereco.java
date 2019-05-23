@@ -10,12 +10,12 @@ import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.Endereco;
 
 public class FacadeClienteEndereco {
-	
+
 	ControllerClienteImp controllerCliente = new ControllerClienteImp();
 	ControllerEnderecoImp controllerEndereco = new ControllerEnderecoImp();
-	
+
 	public void validarCliente(Cliente cliente) throws GeneralException, DaoException {
-		
+
 		cliente.setCpf(controllerCliente.converterCpf(cliente.getCpf()));
 		cliente.setTelefone(controllerCliente.converterTelefone(cliente.getTelefone()));
 		controllerCliente.validaNome(cliente.getNome());
@@ -24,9 +24,9 @@ public class FacadeClienteEndereco {
 		controllerCliente.validaEmail(cliente.getEmail());
 		controllerCliente.validaSexo(cliente.getSexo());
 	}
-	
+
 	public void validarEndereco(Endereco endereco) throws GeneralException, DaoException {
-		
+
 		endereco.setCep(controllerEndereco.validaCep(endereco.getCep()));
 		controllerEndereco.validaRua(endereco.getRua());
 		controllerEndereco.validaBairro(endereco.getBairro());
@@ -34,20 +34,19 @@ public class FacadeClienteEndereco {
 		endereco.setComplemento(controllerEndereco.validaComplemento(endereco.getComplemento()));
 		controllerEndereco.validaNumero(endereco.getNumero());
 	}
-	
+
 	public void inserirClienteEndereco(Cliente cliente, Endereco endereco) throws GeneralException, DaoException {
 		try {
 			validarCliente(cliente);
 			validarEndereco(endereco);
 			controllerEndereco.inserir(endereco);
 			cliente.setEndereco(endereco);
-			controllerCliente.inserirCliente(cliente);		
+			controllerCliente.inserirCliente(cliente);
 			Messages.addGlobalInfo("Cliente Inserido com sucesso!");
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
 }

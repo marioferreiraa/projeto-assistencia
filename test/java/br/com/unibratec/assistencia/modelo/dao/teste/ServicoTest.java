@@ -110,6 +110,37 @@ public class ServicoTest {
 		servicoDAO.excluirPorObjeto(servico);
 	}
 	
+	@Test
+	public void testServicoInsertError() throws GeneralException, DaoException {
+		thrown.expect(DaoException.class);
+		thrown.expectMessage("Erro ao tentar inserir o servico");
+		//Arranjar
+		servico.setNome("asdfhksjadhfkhasdjkfhksjadhfkjhasdkjfhlkasdhfkjashdkjfhkasjldhfkjash");
+		servico.setPreco(10.0);
+		//Agir
+		servicoFachada.inserirServico(servico);
+		//servicoDAO.excluirPorObjeto(servico);
+	}
+	
+	@Test
+	public void testServicoUpdate() throws GeneralException, DaoException {
+		//Arranjar
+		servico.setId(1);
+		servico.setNome("TesteServicoUpdate");
+		servico.setPreco(15.0);
+		//Agir
+		servicoFachada.mergearServico(servico);
+	}
+	@Test
+	public void testServicoUpdateError() throws GeneralException, DaoException {
+		//Arranjar
+		servico.setId(1);
+		servico.setNome("TesteServicoUpdateasfas dfasdfsadf ae ERRRROOOOOOOOOOOOOOOOOOOOO");
+		servico.setPreco(15.0);
+		//Agir
+		servicoFachada.mergearServico(servico);
+	}
+	
 	
 	@After
 	public void after() {
