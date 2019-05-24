@@ -6,20 +6,23 @@ import br.com.unibratec.assistencia.model.entity.UtilJPA;
 
 public abstract class AbstractDAO<T> implements InterfaceDAO<T> {
 	
-	public void inserir(T pEntidade) {
-		inserir(pEntidade, UtilJPA.getEntityManager(), true);
+	public T inserir(T pEntidade) {
+		return inserir(pEntidade, UtilJPA.getEntityManager(), true);
 
 	}
 	
-	private void inserir(T pEntidade, EntityManager pEM, boolean pFecharEM) {
+	private T inserir(T pEntidade, EntityManager pEM, boolean pFecharEM) {
 		pEM.getTransaction().begin();
 		
 		pEM.persist(pEntidade);
 		pEM.getTransaction().commit();
 		
+		pEM.refresh(pEntidade);
+		
 		if(pFecharEM) {
 			pEM.close();
 		}
+		return pEntidade;
 	}
 	
 	public T inserirMerge(T pEntidade) {

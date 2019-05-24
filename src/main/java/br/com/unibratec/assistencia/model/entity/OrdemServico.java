@@ -5,13 +5,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -28,13 +30,15 @@ public class OrdemServico implements IEntidade, Serializable{
 	@Column(name="codigo_ordem")
 	private Integer id;
 	
-	@OneToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Cliente cliente;
 	
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ordemServico_id")
 	private List<Servico> listaServicos;
 	
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ordemServico_id")
 	private List<Produto> listaProdutos;
 	
 	@Column(name="valor_servico")

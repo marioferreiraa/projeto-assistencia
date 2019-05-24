@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -29,18 +31,12 @@ public class Servico implements IEntidade, Serializable{
 	@Column(name="preco_servico")
 	private Double preco;
 	
-	/**
-	 * Construtores
-	 */
+	@ManyToOne
+	@JoinColumn(insertable = false, updatable = false)
+	public OrdemServico ordemServico;
 	
-	/*
-	 * Construtor Padrão
-	 */
 	public Servico() {}
-	
-	/*
-	 * Construtor com todos os parametros
-	 */
+
 	public Servico(String nome, Double preco) {
 		this.setNome(nome);
 		this.setPreco(preco);
@@ -75,8 +71,15 @@ public class Servico implements IEntidade, Serializable{
 	}
 
 	public Object getChavePrimaria() {
-		// TODO Auto-generated method stub
 		return this.id;
+	}
+
+	public OrdemServico getOrdemServico() {
+		return ordemServico;
+	}
+
+	public void setOrdemServico(OrdemServico ordemServico) {
+		this.ordemServico = ordemServico;
 	}
 
 }

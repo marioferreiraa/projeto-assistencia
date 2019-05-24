@@ -1,45 +1,17 @@
 package br.com.unibratec.assistencia.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Embeddable;
 
-@Entity
-public class Endereco implements IEntidade{
+@Embeddable
+public class Endereco {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_endereco")
-	@SequenceGenerator(name="s_codigo_endereco", 
-					   sequenceName="sequence_endereco", 
-					   initialValue=1000,
-					   allocationSize = 1)
-	@Column(name="codigo_endereco")
-	private Integer id;
-	
-	@Column
 	private String rua;
-	
-	@Column
 	private String cep;
-	
-	@Column
 	private String bairro;
-	
-	@Column
 	private String cidade;
-	
-	@Column
 	private String complemento;
-	
-	@Column
 	private String numero;
 	
-	/*
-	 * Construtor padrão
-	 */
 	public Endereco(){
 		super();
 	}
@@ -101,17 +73,4 @@ public class Endereco implements IEntidade{
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Object getChavePrimaria() {
-		return this.id;
-	}
-
 }

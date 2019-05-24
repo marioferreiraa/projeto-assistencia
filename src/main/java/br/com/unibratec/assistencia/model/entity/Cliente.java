@@ -2,6 +2,7 @@ package br.com.unibratec.assistencia.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,7 +42,7 @@ public class Cliente implements IEntidade, Serializable {
 	@Column(name="sexo_cliente", length=10)
 	private String sexo;
 	
-	@OneToOne
+	@Embedded
 	private Endereco endereco;
 	
 	/*
@@ -123,5 +124,6 @@ public class Cliente implements IEntidade, Serializable {
 	public Integer getChavePrimaria() {
 		return this.id;
 	}
+
 
 }

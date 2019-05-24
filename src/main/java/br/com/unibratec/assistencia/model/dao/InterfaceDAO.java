@@ -2,7 +2,7 @@ package br.com.unibratec.assistencia.model.dao;
 
 public interface InterfaceDAO<T> {
 
-	public void inserir(T pEntidade);
+	public T inserir(T pEntidade);
 	
 	public T inserirMerge(T pEntidade);
 	

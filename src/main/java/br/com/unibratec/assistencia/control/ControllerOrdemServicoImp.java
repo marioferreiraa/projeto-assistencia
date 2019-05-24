@@ -18,6 +18,13 @@ public class ControllerOrdemServicoImp implements ControllerOrdemServico {
 	
 	OrdemServicoDAO osDAO = new OrdemServicoDAO();
 	
+	public void validarOs(OrdemServico os) throws GeneralException {
+		validaPreco(os.getPreco());
+		validaData(os.getDataIniString().getTime(), os.getDataFimString().getTime());
+		validaListas(os.getListaServicos(), os.getListaProdutos());
+		validaCliente(os.getCliente());
+	}
+	
 	public void validaListas(List<Servico> listaServicos, List<Produto> listaProdutos) throws GeneralException{
 		if(CollectionUtils.isNullOrEmpty(listaServicos) && CollectionUtils.isNullOrEmpty(listaProdutos)) {
 			throw new GeneralException("Precisa ser informado algum tipo de serviço prestado");
