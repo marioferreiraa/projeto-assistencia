@@ -17,17 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class OrdemServico implements IEntidade, Serializable{
+public class OrdemServico implements IEntidade, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_os")
-	@SequenceGenerator(name="s_codigo_os", 
-					   sequenceName="sequence_os", 
-					   initialValue=1000,
-					   allocationSize = 1)
-	@Column(name="codigo_ordem")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_codigo_os")
+	@SequenceGenerator(name = "s_codigo_os", sequenceName = "sequence_os", initialValue = 1000, allocationSize = 1)
+	@Column(name = "codigo_ordem")
 	private Integer id;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -40,19 +37,19 @@ public class OrdemServico implements IEntidade, Serializable{
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ordemServico_id")
 	private List<Produto> listaProdutos;
-	
-	@Column(name="valor_servico")
+
+	@Column(name = "valor_servico")
 	private Double preco;
-	
-	@Column(name="data_inicio_servico")
+
+	@Column(name = "data_inicio_servico")
 	private Date dataInicio;
-	
-	@Column(name="data_entrega_servico")
+
+	@Column(name = "data_entrega_servico")
 	private Date dataFim;
-	
+
 	private Calendar dataIniString;
 	private Calendar dataFimString;
-	
+
 	public Integer getId() {
 		return id;
 	}

@@ -12,23 +12,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Servico implements IEntidade, Serializable{
+public class Servico implements IEntidade, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="s_codigo_servico")
-	@SequenceGenerator(name="s_codigo_servico", 
-					   sequenceName="sequence_servico", 
-					   initialValue=100,
-					   allocationSize = 1)
-	@Column(name="codigo_servico")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_codigo_servico")
+	@SequenceGenerator(name = "s_codigo_servico", sequenceName = "sequence_servico", initialValue = 100, allocationSize = 1)
+	@Column(name = "codigo_servico")
 	private Integer id;
-	
-	@Column(name="nome_servico")
+
+	@Column(name = "nome_servico", length = 50)
 	private String nome;
-	
-	@Column(name="preco_servico")
+
+	@Column(name = "preco_servico")
 	private Double preco;
 	
 	@ManyToOne
@@ -41,15 +38,15 @@ public class Servico implements IEntidade, Serializable{
 		this.setNome(nome);
 		this.setPreco(preco);
 	}
-	
+
 	/**
 	 * Getters and setters
 	 */
-	
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

@@ -16,16 +16,16 @@ public class Endereco {
 		super();
 	}
 
-	public Endereco(String rua, String cep, String bairro, String cidade, String complemento, String numero){
-		
+	public Endereco(String rua, String cep, String bairro, String cidade, String complemento, String numero) {
+
 		this.setRua(rua);
 		this.setBairro(bairro);
 		this.setCep(cep);
 		this.setCidade(cidade);
 		this.setNumero(numero);
-		
+
 	}
-	
+
 	public String getRua() {
 		return rua;
 	}

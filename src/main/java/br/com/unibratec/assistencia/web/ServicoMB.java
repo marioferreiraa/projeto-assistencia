@@ -15,76 +15,77 @@ import br.com.unibratec.assistencia.model.entity.Servico;
 
 @ManagedBean
 @ViewScoped
-public class ServicoMB implements Serializable{
+public class ServicoMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	Servico servico = new Servico();
 	ServicoDAO servicoDAO = new ServicoDAO();
 	FacadeServico fachadaServico = new FacadeServico();
 	List<Servico> listaServicos;
-	
-	public ServicoMB() {}
-	
+
+	public ServicoMB() {
+	}
+
 	@PostConstruct
 	public void atualizaListaServicos() {
 		try {
 			this.listaServicos = servicoDAO.consultarTodosOsServicos();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			Messages.addGlobalError("Erro ao tentar listar os serviços");
+			Messages.addGlobalError("Erro ao tentar listar os serviÃ§os");
 		}
 	}
-	
+
 	public void novo() {
 		servico = new Servico();
 	}
-	
+
 	public void inserir() {
-		if(this.servico != null) {
+		if (this.servico != null) {
 			String msg = "";
 			try {
-				if(servico.getChavePrimaria() == null) {
+				if (servico.getChavePrimaria() == null) {
 					fachadaServico.inserirServico(servico);
-					msg = "Serviço inserido com sucesso!";
-				}else {
+					msg = "Serviï¿½o inserido com sucesso!";
+				} else {
 					fachadaServico.mergearServico(servico);
-					msg = "Serviço alterados com sucesso!";
+					msg = "Serviï¿½o alterados com sucesso!";
 				}
 				novo();
 				Messages.addGlobalInfo(msg);
 				atualizaListaServicos();
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-				Messages.addGlobalError("Erro ao tentar inserir o serviço no banco!");
+				Messages.addGlobalError("Erro ao tentar inserir o serviÃ§o no banco!");
 			}
 		}
 	}
-	
+
 	public void excluirServico(Servico servico) {
 		try {
 			servicoDAO.excluirPorObjeto(servico);
 			atualizaListaServicos();
 			Messages.addGlobalInfo("Servico Deletado com sucesso");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			Messages.addGlobalError("Erro ao tentar deletar o serviço!");
+			Messages.addGlobalError("Erro ao tentar deletar o serviÃ§o!");
 		}
 	}
-	
+
 	public void alterarServicos(Servico servico) {
-		if(servico != null) {
+		if (servico != null) {
 			this.servico = servico;
 		}
 	}
-	
+
 	public void merge() {
 		try {
 			servicoDAO.inserirMerge(servico);
-			Messages.addGlobalInfo("Alteração realizada com sucesso!");
-		}catch (Exception e) {
+			Messages.addGlobalInfo("AlteraÃ§Ã£o realizada com sucesso!");
+		} catch (Exception e) {
 			e.printStackTrace();
-			Messages.addGlobalError("Erro ao tentar alterar o serviço!");
+			Messages.addGlobalError("Erro ao tentar alterar o serviÃ§o!");
 		}
 	}
 

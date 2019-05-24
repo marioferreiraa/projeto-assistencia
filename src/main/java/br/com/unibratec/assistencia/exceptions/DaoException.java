@@ -2,32 +2,36 @@ package br.com.unibratec.assistencia.exceptions;
 
 import org.omnifaces.util.Messages;
 
-public class DaoException extends Exception{
+public class DaoException extends Exception {
 
 	/*
-	 * SerializaÁ„o genÈrica.
+	 * Serializa√ß√£o gen√©rica.
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * Construtor padr„o vazio.
+	 * Construtor padr√£o vazio.
 	 */
-	public DaoException(){}
-	
+	public DaoException() {
+	}
+
 	/*
 	 * Construtor recebendo um Exception e retornando para a classe pai tratar.
+	 * 
 	 * @param Exception e
 	 */
 	public DaoException(Exception e) {
 		super(e);
 	}
-	
+
 	/*
 	 * Construtor recebendo uma String e enviando para o front JSF.
+	 * 
 	 * @param String msg
 	 */
 	public DaoException(String msg) {
-		Messages.addGlobalError(msg);
+		super(msg);
+		// Messages.addGlobalError(msg);
 	}
-	
+
 }

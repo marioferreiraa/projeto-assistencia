@@ -8,19 +8,19 @@ import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.model.entity.Produto;
 
 public class FacadeProduto {
-	
+
 	ControllerProduto cp = new ControllerProduto();
-	
-	public void validarProduto(Produto produto) throws GeneralException{
+
+	public void validarProduto(Produto produto) throws GeneralException {
 		cp.validaDescricao(produto.getDescricao());
 		cp.validaNome(produto.getNome());
 		cp.validaPreco(produto.getValor());
 		cp.validaQuantidade(produto.getQuantidade());
 	}
-	
-	public void inserirProduto(Produto produto) throws GeneralException, DaoException{
+
+	public void inserirProduto(Produto produto) throws GeneralException, DaoException {
 		this.validarProduto(produto);
-		cp.inserirProduto(produto);		
+		cp.inserirProduto(produto);
 		Messages.addGlobalInfo("Produto inserido com sucesso!");
 	}
 

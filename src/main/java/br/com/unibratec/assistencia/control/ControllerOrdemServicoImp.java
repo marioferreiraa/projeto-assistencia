@@ -13,9 +13,8 @@ import br.com.unibratec.assistencia.model.entity.OrdemServico;
 import br.com.unibratec.assistencia.model.entity.Produto;
 import br.com.unibratec.assistencia.model.entity.Servico;
 
-
 public class ControllerOrdemServicoImp implements ControllerOrdemServico {
-	
+
 	OrdemServicoDAO osDAO = new OrdemServicoDAO();
 	
 	public void validarOs(OrdemServico os) throws GeneralException {
@@ -30,41 +29,41 @@ public class ControllerOrdemServicoImp implements ControllerOrdemServico {
 			throw new GeneralException("Precisa ser informado algum tipo de serviço prestado");
 		}
 	}
-	
-	public void validaPreco(double preco) throws GeneralException{
-		if(preco <= 0.0) {
+
+	public void validaPreco(double preco) throws GeneralException {
+		if (preco <= 0.0) {
 			throw new GeneralException("O preço informado é inválido");
 		}
 	}
-	
-	public void validaData(Date dIni, Date dFim) throws GeneralException{
-		
+
+	public void validaData(Date dIni, Date dFim) throws GeneralException {
+
 		Date today = new Date();
-		
-		if(dIni.before(today) || dFim.before(today)) {
+
+		if (dIni.before(today) || dFim.before(today)) {
 			throw new GeneralException("A data inicial ou final não pode ser menor que a data de Hoje!");
 		}
-		
-		if(dIni.after(dFim)) {
+
+		if (dIni.after(dFim)) {
 			throw new GeneralException("A data inicial não pode ser maior que a data final!");
 		}
-		
-		if(dIni.equals(null) || dFim.equals(null)) {
+
+		if (dIni.equals(null) || dFim.equals(null)) {
 			throw new GeneralException("Ambas as datas devem ser informadas");
 		}
-		
-		if(dIni.after(today) || dFim.after(today)) {
+
+		if (dIni.after(today) || dFim.after(today)) {
 			throw new GeneralException("A data inicial ou final não pode ser futura!");
 		}
 	}
 
-	public void validaCliente(Cliente cliente) throws GeneralException{
-		if(cliente == null){
+	public void validaCliente(Cliente cliente) throws GeneralException {
+		if (cliente == null) {
 			throw new GeneralException("Um cliente deve ser anexado à Ordem de Serviço");
 		}
 	}
-	
-	public void inserirOrdem(OrdemServico ordemServico) throws DaoException, GeneralException{
+
+	public void inserirOrdem(OrdemServico ordemServico) throws DaoException, GeneralException {
 		try {
 			osDAO.inserirMerge(ordemServico);
 		} catch (Exception e) {
