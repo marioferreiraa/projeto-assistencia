@@ -1,2 +1,6 @@
 /target
-/src/main/webapp/assistencia/package-lock.json
+target/
+target
+/target/
+*.class
+package-lock.json
