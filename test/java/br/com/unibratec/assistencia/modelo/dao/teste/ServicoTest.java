@@ -1,5 +1,8 @@
 package br.com.unibratec.assistencia.modelo.dao.teste;
 
+import java.util.List;
+
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,13 +26,16 @@ public class ServicoTest {
 	private static ControllerOrdemServicoImp servicoController;
 	private static FacadeServico servicoFachada;
 	private static ServicoDAO servicoDAO;
+	private static List<Servico> resultSet;
 	Servico servico;
+	SessionFactory sessao;
 	
 	@BeforeClass
 	public static void beforeClass() {
 		servicoController = new ControllerOrdemServicoImp();
 		servicoFachada = new FacadeServico();
 		servicoDAO = new ServicoDAO();
+		
 		
 	}
 	
@@ -119,7 +125,6 @@ public class ServicoTest {
 		servico.setPreco(10.0);
 		//Agir
 		servicoFachada.inserirServico(servico);
-		//servicoDAO.excluirPorObjeto(servico);
 	}
 	
 	@Test
@@ -133,6 +138,7 @@ public class ServicoTest {
 	}
 	@Test
 	public void testServicoUpdateError() throws GeneralException, DaoException {
+		thrown.expect(DaoException.class);
 		//Arranjar
 		servico.setId(1);
 		servico.setNome("TesteServicoUpdateasfas dfasdfsadf ae ERRRROOOOOOOOOOOOOOOOOOOOO");
@@ -140,7 +146,32 @@ public class ServicoTest {
 		//Agir
 		servicoFachada.mergearServico(servico);
 	}
+	@Test
+	public void testServicoSelect() throws GeneralException, DaoException {
+		//Arranjar
+		//Agir
+		resultSet = servicoDAO.consultarTodosOsServicos();
+	}
 	
+	
+	@Test
+	public void testServicoDelete() throws GeneralException, DaoException {
+		//Arranjar
+		servico.setNome("Excluir");
+		servico.setPreco(15.0);
+		servicoFachada.inserirServico(servico);
+		//Agir
+		servicoDAO.excluirPorObjetoDireto(servico);
+	}
+	
+	@Test
+	public void testServicoSelectError() throws GeneralException, DaoException {
+		thrown.expect(DaoException.class);
+		//Arranjar
+		sessao.close();
+		//Agir	
+		resultSet = servicoDAO.consultarTodosOsServicos();
+	}
 	
 	@After
 	public void after() {
