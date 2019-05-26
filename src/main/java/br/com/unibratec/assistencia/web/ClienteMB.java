@@ -92,7 +92,8 @@ public class ClienteMB implements Serializable {
 
 		if (this.cliente != null && this.endereco != null) {
 			try {
-				facadeClienteEndereco.inserirClienteEndereco(cliente, endereco);
+				cliente.setEndereco(endereco);
+				facadeClienteEndereco.inserirClienteEndereco(cliente);
 				novo();
 			} catch (Exception e) {
 				Messages.addGlobalInfo("Erro ao tentar inserir o cliente");
@@ -108,7 +109,7 @@ public class ClienteMB implements Serializable {
 			atualizaListaClientes();
 			Messages.addGlobalInfo("Cliente Deletado com sucesso");
 		} catch (Exception e) {
-			Messages.addGlobalError("N�o foi possivel deletar o cliente!");
+			Messages.addGlobalError("Não foi possivel deletar o cliente!");
 		}
 	}
 

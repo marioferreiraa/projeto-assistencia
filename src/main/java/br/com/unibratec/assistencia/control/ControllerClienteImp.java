@@ -65,25 +65,45 @@ public class ControllerClienteImp {
 		return telefone.replaceAll("[ ()-]", "");
 	}
 
-	public void verificaDuplicidade(Cliente cliente) throws DaoException, GeneralException {
-		if (cliente != null) {
-			try {
-				Cliente cliente2 = clienteDAO.consultarPorObjeto(cliente);
-				if (cliente2 != null) {
-					throw new GeneralException("Esse cliente já está inserido na base de dados.");
-				}
-			} catch (Exception e) {
-				throw new DaoException("Erro ao tentar buscar o cliente no registro!");
-			}
+	public Cliente clienteDuplicado(String cpf) throws DaoException, GeneralException {
+		
+		Cliente c = new Cliente();	
+		try {
+			c = clienteDAO.consultarPorCpf(cpf);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao tentar buscar o cliente no registro!");
 		}
+		
+		return c;
 	}
 
-	public void inserirCliente(Cliente cliente) throws DaoException, GeneralException {
+	public Cliente inserirCliente(Cliente cliente) throws DaoException, GeneralException {
 		try {
-			clienteDAO.inserirMerge(cliente);
+			if(clienteDuplicado(cliente.getCpf()) == null) {
+				return clienteDAO.inserir(cliente);
+			}
+			return null;
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
-
+	}
+	
+	public Cliente alterarCliente(Cliente cliente) throws DaoException, GeneralException{
+		try {
+			return clienteDAO.inserirMerge(cliente);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao tentar alterar o cliente");
+		}
+	}
+	
+	public void deletarCliente(Cliente cliente) throws DaoException{
+		try {
+			clienteDAO.excluirPorObjeto(cliente);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao tentar deletar o cliente!");
+		}
 	}
 }

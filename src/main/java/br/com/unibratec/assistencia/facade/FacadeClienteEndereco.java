@@ -35,18 +35,20 @@ public class FacadeClienteEndereco {
 		controllerEndereco.validaNumero(endereco.getNumero());
 	}
 
-	public void inserirClienteEndereco(Cliente cliente, Endereco endereco) throws GeneralException, DaoException {
+	public Cliente inserirClienteEndereco(Cliente cliente) throws GeneralException, DaoException {
+		
+		Cliente retorno = new Cliente();
+		
 		try {
 			validarCliente(cliente);
-			validarEndereco(endereco);
-			controllerEndereco.inserir(endereco);
-			cliente.setEndereco(endereco);
-			controllerCliente.inserirCliente(cliente);
-			Messages.addGlobalInfo("Cliente Inserido com sucesso!");
+			validarEndereco(cliente.getEndereco());
+			retorno = controllerCliente.inserirCliente(cliente);
+			//Messages.addGlobalInfo("Cliente Inserido com sucesso!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return retorno;
 
 	}
-
 }
