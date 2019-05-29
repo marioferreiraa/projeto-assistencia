@@ -1,17 +1,13 @@
 package br.com.unibratec.assistencia.control;
 
 import java.util.Date;
-import java.util.List;
 
 import br.com.unibratec.assistencia.control.imp.ControllerOrdemServico;
 import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.helper.CollectionUtils;
 import br.com.unibratec.assistencia.model.dao.OrdemServicoDAO;
-import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.OrdemServico;
-import br.com.unibratec.assistencia.model.entity.Produto;
-import br.com.unibratec.assistencia.model.entity.Servico;
 
 public class ControllerOrdemServicoImp implements ControllerOrdemServico {
 
