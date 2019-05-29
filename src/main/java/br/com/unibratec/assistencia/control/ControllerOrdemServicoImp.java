@@ -19,13 +19,16 @@ public class ControllerOrdemServicoImp implements ControllerOrdemServico {
 	
 	public void validarOs(OrdemServico os) throws GeneralException {
 		validaPreco(os.getPreco());
-		validaData(os.getDataIniString().getTime(), os.getDataFimString().getTime());
-		validaListas(os.getListaServicos(), os.getListaProdutos());
-		validaCliente(os.getCliente());
+		validaData(os.getDataInicio(), os.getDataFim());
+		validaListas(os);
+		validaCliente(os);
 	}
 	
-	public void validaListas(List<Servico> listaServicos, List<Produto> listaProdutos) throws GeneralException{
-		if(CollectionUtils.isNullOrEmpty(listaServicos) && CollectionUtils.isNullOrEmpty(listaProdutos)) {
+	public void validaListas(OrdemServico os) throws GeneralException{
+		if(CollectionUtils.isNullOrEmpty(os.getListaProdutos())) {
+			throw new GeneralException("Precisa ser informado algum produto");
+		}
+		if (CollectionUtils.isNullOrEmpty(os.getListaServicos())) {
 			throw new GeneralException("Precisa ser informado algum tipo de serviço prestado");
 		}
 	}
@@ -39,26 +42,29 @@ public class ControllerOrdemServicoImp implements ControllerOrdemServico {
 	public void validaData(Date dIni, Date dFim) throws GeneralException {
 
 		Date today = new Date();
-
-		if (dIni.before(today) || dFim.before(today)) {
-			throw new GeneralException("A data inicial ou final não pode ser menor que a data de Hoje!");
-		}
-
-		if (dIni.after(dFim)) {
-			throw new GeneralException("A data inicial não pode ser maior que a data final!");
-		}
-
-		if (dIni.equals(null) || dFim.equals(null)) {
+		
+		if (dIni == null || dFim == null) {
+		
 			throw new GeneralException("Ambas as datas devem ser informadas");
-		}
-
-		if (dIni.after(today) || dFim.after(today)) {
-			throw new GeneralException("A data inicial ou final não pode ser futura!");
+	
+		} else {
+			
+			if (dIni.before(today) || dFim.before(today)) {
+				throw new GeneralException("A data inicial ou final não pode ser menor que a data de Hoje!");
+			}
+			
+			if (dIni.after(dFim)) {
+				throw new GeneralException("A data inicial não pode ser maior que a data final!");
+			}
+			
+			if (dIni.after(today) || dFim.after(today)) {
+				throw new GeneralException("A data inicial ou final não pode ser futura!");
+			}
 		}
 	}
 
-	public void validaCliente(Cliente cliente) throws GeneralException {
-		if (cliente == null) {
+	public void validaCliente(OrdemServico os) throws GeneralException {
+		if (os.getCliente() == null) {
 			throw new GeneralException("Um cliente deve ser anexado à Ordem de Serviço");
 		}
 	}

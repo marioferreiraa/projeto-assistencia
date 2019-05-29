@@ -1,7 +1,6 @@
 package br.com.unibratec.assistencia.facade;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.omnifaces.util.Messages;
 
@@ -17,8 +16,8 @@ public class FacadeOrdemServico {
 	public void validarOs(OrdemServico os) throws GeneralException {
 		cOS.validaPreco(os.getPreco());
 		cOS.validaData(os.getDataIniString().getTime(), os.getDataFimString().getTime());
-		cOS.validaListas(os.getListaServicos(), os.getListaProdutos());
-		cOS.validaCliente(os.getCliente());
+		cOS.validaListas(os);
+		cOS.validaCliente(os);
 	}
 
 	public void convertData(OrdemServico os) throws GeneralException {

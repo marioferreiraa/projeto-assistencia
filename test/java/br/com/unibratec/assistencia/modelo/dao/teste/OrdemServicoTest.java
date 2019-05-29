@@ -1,17 +1,19 @@
 package br.com.unibratec.assistencia.modelo.dao.teste;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.com.unibratec.assistencia.control.ControllerOrdemServicoImp;
+import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.model.dao.OrdemServicoDAO;
 import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.Endereco;
@@ -38,26 +40,32 @@ public class OrdemServicoTest {
 
 	@Test
 	public void createOrdemServicoTest() {
-
-		OrdemServico os = createTempOrdemServico();
-		ordemServicoDao.inserir(os);
-		assertNotNull(os.getId());
+		ordemServicoDao.inserir(ordemServico);
+		Assert.assertNotNull(ordemServico.getId());
 	}
 
-	@Test
-	public void validateOrdemServicoNotNullTest() {
-
-		
+	@Test(expected=GeneralException.class)
+	public void validateOrdemServicoNotNullTest() throws Exception {
+		ordemServico.setCliente(null);
+		ordemServico.setListaProdutos(null);
+		ordemServico.setListaServicos(null);
+		ordemServicoController.validarOs(ordemServico);
 	}
 
-	@Test
-	public void validateNegativePriceTest() {
-
+	@Test(expected=GeneralException.class)
+	public void validateNegativePriceTest() throws Exception {
+		ordemServico.setPreco(-20d);
+		ordemServicoController.validaPreco(ordemServico.getPreco());
 	}
 
-	@Test
-	public void validateFutureIniDateTest() {
-
+	@Test(expected=GeneralException.class)
+	public void validateFutureIniDateTest() throws Exception {
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(new Date());
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) -20);
+		ordemServico.setDataInicio(calendar.getTime());
+		ordemServico.setDataFim(new Date());
+		ordemServicoController.validaData(ordemServico.getDataInicio(), ordemServico.getDataFim());
 	}
 
 	@Test
@@ -65,14 +73,17 @@ public class OrdemServicoTest {
 
 	}
 
-	@Test
-	public void checkClienteNotNullTest() {
-
+	@Test(expected=GeneralException.class)
+	public void checkClienteNotNullTest() throws Exception {
+		ordemServico.setCliente(null);
+		ordemServicoController.validaCliente(ordemServico);
 	}
 
-	@Test
-	public void checkProdutosOrServicosNullOrEmptyTest() {
-
+	@Test(expected=GeneralException.class)
+	public void checkProdutosOrServicosNullOrEmptyTest() throws Exception {
+		ordemServico.setListaProdutos(null);
+		ordemServico.setListaServicos(null);
+		ordemServicoController.validaListas(ordemServico);
 	}
 
 	public OrdemServico createTempOrdemServico() {
