@@ -1,3 +1,10 @@
+import org.junit.Test;
+
+import br.com.unibratec.assistencia.model.dao.OrdemServicoDAO;
+import br.com.unibratec.assistencia.model.dao.ProdutoDAO;
+import br.com.unibratec.assistencia.model.entity.OrdemServico;
+import br.com.unibratec.assistencia.model.entity.Produto;
+
 public class ProdutoDAOTest {
 	
 	@Test
