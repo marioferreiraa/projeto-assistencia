@@ -1,4 +1,4 @@
-package br.com.unibratec.assistencia.modelo.dao.teste.clienteEndereco;
+package br.com.unibratec.assistencia.modelo.dao.teste;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

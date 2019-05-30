@@ -1,4 +1,4 @@
-package br.com.unibratec.assistencia.modelo.dao.teste.clienteEndereco;
+package br.com.unibratec.assistencia.modelo.dao.teste;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
