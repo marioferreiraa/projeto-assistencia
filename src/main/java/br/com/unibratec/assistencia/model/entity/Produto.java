@@ -35,6 +35,17 @@ public class Produto implements IEntidade, Serializable {
 	@ManyToOne
 	@JoinColumn(insertable = false, updatable = false)
 	public OrdemServico ordemServico;
+	
+	public Produto () {
+		super ();
+	}
+
+	public Produto(String nome, String descricao, int quantidade, double valor) {
+		this.setNome(nome);
+		this.setDescricao(descricao);
+		this.setQuantidade(quantidade);
+		this.setValor(valor);
+	}
 
 	public Integer getChavePrimaria() {
 		// TODO Auto-generated method stub
