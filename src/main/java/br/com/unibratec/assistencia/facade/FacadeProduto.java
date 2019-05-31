@@ -2,14 +2,14 @@ package br.com.unibratec.assistencia.facade;
 
 import org.omnifaces.util.Messages;
 
-import br.com.unibratec.assistencia.control.ControllerProduto;
+import br.com.unibratec.assistencia.control.ControllerProdutoImp;
 import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.model.entity.Produto;
 
 public class FacadeProduto {
 
-	ControllerProduto cp = new ControllerProduto();
+	ControllerProdutoImp cp = new ControllerProdutoImp();
 
 	public void validarProduto(Produto produto) throws GeneralException {
 		cp.validaDescricao(produto.getDescricao());
