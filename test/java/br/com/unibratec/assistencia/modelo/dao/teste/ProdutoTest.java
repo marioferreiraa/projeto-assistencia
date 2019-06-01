@@ -56,7 +56,7 @@ public class ProdutoTest {
 		@Test
 		public void testProdutoWithInvalidName() throws GeneralException, DaoException {
 			thrown.expect(GeneralException.class);
-			thrown.expectMessage("O nome do produto n„o pode ser deixado em branco");
+			thrown.expectMessage("O nome do produto n√£o pode ser deixado em branco");
 			//Arranjar
 			produto.setNome("windows y");
 			//Agir
@@ -66,7 +66,7 @@ public class ProdutoTest {
 		@Test
 		public void testProdutoWithInvalidDescricao() throws GeneralException, DaoException{
 			thrown.expect(GeneralException.class);
-			thrown.expectMessage("A descriÁ„o deve ser informada!");
+			thrown.expectMessage("A descri√ß√£o deve ser informada!");
 			//Arranjar
 			produto.setDescricao("produto x");
 			//Agir
@@ -77,14 +77,14 @@ public class ProdutoTest {
 		@Test
 		public void testProdutoWithInvalidQuantidade() throws GeneralException, DaoException{
 			thrown.expect(GeneralException.class);
-			thrown.expectMessage("A quantidade informada È invalida");
+			thrown.expectMessage("A quantidade informada √© invalida");
 			produto.setQuantidade(6);
 			produtoFachada.validarProduto(produto);
 		}
 		@Test
 		public void testProdutoWithInvalidValor() throws GeneralException, DaoException{
 			thrown.expect(GeneralException.class);
-			thrown.expectMessage("O valor informado È invalido");
+			thrown.expectMessage("O valor informado √© invalido");
 			produto.setValor(10.0);
 			produtoFachada.validarProduto(produto);
 		}

@@ -68,13 +68,7 @@ public class ControllerClienteImp {
 	public Cliente clienteDuplicado(String cpf) throws DaoException, GeneralException {
 		
 		Cliente c = new Cliente();	
-		try {
-			c = clienteDAO.consultarPorCpf(cpf);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DaoException("Erro ao tentar buscar o cliente no registro!");
-		}
-		
+		c = clienteDAO.consultarPorCpf(cpf);
 		return c;
 	}
 

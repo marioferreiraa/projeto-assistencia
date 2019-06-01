@@ -15,7 +15,7 @@ public class FacadeClienteEndereco {
 	ControllerEnderecoImp controllerEndereco = new ControllerEnderecoImp();
 
 	public void validarCliente(Cliente cliente) throws GeneralException, DaoException {
-
+		
 		cliente.setCpf(controllerCliente.converterCpf(cliente.getCpf()));
 		cliente.setTelefone(controllerCliente.converterTelefone(cliente.getTelefone()));
 		controllerCliente.validaNome(cliente.getNome());
@@ -46,6 +46,7 @@ public class FacadeClienteEndereco {
 			//Messages.addGlobalInfo("Cliente Inserido com sucesso!");
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new GeneralException();
 		}
 		
 		return retorno;

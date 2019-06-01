@@ -55,13 +55,4 @@ public class ControllerEnderecoImp {
 		}
 	}
 
-	public void inserir(Endereco endereco) throws DaoException {
-		try {
-			enderecoDAO.inserir(endereco);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DaoException("Erro ao tentar inserir o endereço");
-		}
-	}
-
 }

@@ -1,6 +1,12 @@
 package br.com.unibratec.assistencia.modelo.dao.teste;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.NoResultException;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -12,6 +18,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.unibratec.assistencia.control.ControllerClienteImp;
+import br.com.unibratec.assistencia.control.ControllerEnderecoImp;
 import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.exceptions.GeneralException;
 import br.com.unibratec.assistencia.facade.FacadeClienteEndereco;
@@ -19,7 +26,7 @@ import br.com.unibratec.assistencia.model.dao.ClienteDAO;
 import br.com.unibratec.assistencia.model.entity.Cliente;
 import br.com.unibratec.assistencia.model.entity.Endereco;
 
-public class ClienteEnderecoDAOTest {
+public class ClienteEnderecoDAOTestIntegracao {
 	
 	private static ControllerClienteImp clienteController;
 	private static FacadeClienteEndereco clienteEnderecoFachada;
@@ -79,6 +86,72 @@ public class ClienteEnderecoDAOTest {
 		assertNull(this.cliente);	
 	}
 	
+	@Test(expected = DaoException.class)
+	public void inserirClienteNull() throws DaoException, GeneralException {
+		//Forçar erro ao tentar buscar se cliente ja existe
+		//Arranjar
+		Cliente cNull = null;
+		//Agir
+		clienteController.inserirCliente(cNull);
+	}
+	
+	@Test(expected = DaoException.class)
+	public void alterarClienteNull() throws DaoException, GeneralException{
+		//Arranjar
+		Cliente cNull = null;
+		//Agir
+		clienteController.alterarCliente(cNull);
+	}
+	
+	@Test(expected = DaoException.class)
+	public void deletarClienteNull() throws DaoException, GeneralException{
+		//Arranjar
+		Cliente cNull = null;
+		//Agir
+		clienteController.deletarCliente(cNull);
+	}
+	
+	@Test
+	public void testSelectAllCliente() throws DaoException, GeneralException {
+		//Arranjar
+		ClienteDAO clienteDAO = new ClienteDAO();
+		List<Cliente> listaClientes = new ArrayList<Cliente>();
+		Cliente cliente = createTempCliente();
+		cliente.setCpf("21376584026");
+		
+		//Agir
+		clienteController.inserirCliente(cliente);
+		listaClientes = clienteDAO.consultarTodosOsClientes();
+		
+		//Afirmar
+		assertNotNull(listaClientes);
+	}
+	
+	@Test
+	public void testSelectForCPF() throws DaoException, GeneralException {
+		//Arranjar
+		Cliente cliente = createTempCliente();
+		ClienteDAO clienteDAO = new ClienteDAO();
+		//Agir
+		cliente.setCpf("21376584026");
+		clienteController.inserirCliente(cliente);
+		cliente = clienteDAO.consultarPorCpf(cliente.getCpf());
+		//Afirmar
+		assertNotNull(cliente.getChavePrimaria());
+	}
+	
+	@Test
+	public void testSelectForNullCpf() throws DaoException, GeneralException{
+		//Arranjar
+		String cpf = null;
+		Cliente cliente = new Cliente();
+		ClienteDAO clienteDAO = new ClienteDAO();
+		//Agir
+		cliente = clienteDAO.consultarPorCpf(cpf);
+		//Afirmar
+		assertNull(cliente);
+	}
+	
 	public Cliente createTempCliente() {
 		
 		Cliente retorno = new Cliente("Mario Ferreira", "12345678909", "81999999999", "mario@aa.aa", "M");
@@ -88,12 +161,9 @@ public class ClienteEnderecoDAOTest {
 		return retorno;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	@After
+	public void deleteClienteTest() {
+		
 	}
 	
 }

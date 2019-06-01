@@ -122,6 +122,12 @@ public class ClienteTest {
 		clienteFachada.validarCliente(cliente);
 	}
 	
+	@Test(expected = GeneralException.class)
+	public void testClienteNull() throws GeneralException, DaoException{
+		Cliente clienteNull = null;
+		this.clienteFachada.inserirClienteEndereco(clienteNull);
+	}
+	
 	
 	
 	public static ControllerClienteImp getClienteController() {

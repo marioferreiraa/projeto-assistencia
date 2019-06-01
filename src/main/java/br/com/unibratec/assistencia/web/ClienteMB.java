@@ -3,15 +3,12 @@ package br.com.unibratec.assistencia.web;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
-import java.io.Console;
 import java.io.Serializable;
 import java.util.List;
 
-import br.com.unibratec.assistencia.exceptions.DaoException;
 import br.com.unibratec.assistencia.facade.FacadeClienteEndereco;
 import br.com.unibratec.assistencia.model.dao.ClienteDAO;
 import br.com.unibratec.assistencia.model.dao.EnderecoDAO;
