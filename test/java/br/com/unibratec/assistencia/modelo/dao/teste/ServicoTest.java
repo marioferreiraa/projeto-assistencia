@@ -146,7 +146,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoInsertError() throws GeneralException, DaoException {
 		thrown.expect(DaoException.class);
-		thrown.expectMessage("Erro ao tentar inserir o servico");
+		thrown.expectMessage("Erro ao tentar cadastrar o servi�o");
 		//Arranjar
 		servico.setNome("asdfhksjadhfkhasdjkfhksjadhfkjhasdkjfhlkasdhfkjashdkjfhkasjldhfkjash");
 		servico.setPreco(10.0);
@@ -195,7 +195,7 @@ public class ServicoTest {
 	public void testServicoSelectError() throws GeneralException, DaoException {
 		thrown.expect(DaoException.class);
 		//Arranjar
-		sessao.close();
+		sessao.isClosed();
 		//Agir	
 		resultSet = servicoDAO.consultarTodosOsServicos();
 	}
