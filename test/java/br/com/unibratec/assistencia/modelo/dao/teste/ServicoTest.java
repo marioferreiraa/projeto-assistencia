@@ -20,6 +20,7 @@ import br.com.unibratec.assistencia.facade.FacadeClienteEndereco;
 import br.com.unibratec.assistencia.facade.FacadeServico;
 import br.com.unibratec.assistencia.model.dao.ServicoDAO;
 import br.com.unibratec.assistencia.model.entity.Cliente;
+import br.com.unibratec.assistencia.model.entity.OrdemServico;
 import br.com.unibratec.assistencia.model.entity.Servico;
 
 public class ServicoTest {
@@ -28,6 +29,7 @@ public class ServicoTest {
 	private static FacadeServico servicoFachada;
 	private static ServicoDAO servicoDAO;
 	private static List<Servico> resultSet;
+	OrdemServico ordemServico;
 	Servico servico;
 	SessionFactory sessao;
 	
@@ -106,6 +108,30 @@ public class ServicoTest {
 		//Agir
 		servicoFachada.validarServico(servico);
 	}
+	@Test
+	public void testServicoConstruct() throws GeneralException, DaoException {
+		//Arranjar
+		//Agir
+		servico = new Servico("TesteConstrutor",100.0);
+		}
+	@Test
+	public void testServicoGetServico() throws GeneralException, DaoException {
+		//Arranjar
+		//Agir
+		servico.getId();
+		}
+	@Test
+	public void testServicoGetOrdemServico() throws GeneralException, DaoException {
+		//Arranjar
+		//Agir
+		servico.getOrdemServico();
+		}
+	@Test
+	public void testServicoSetOrdemServico() throws GeneralException, DaoException {
+		//Arranjar
+		//Agir
+		servico.setOrdemServico(ordemServico);
+		}
 	
 	@Test
 	public void testServicoInsert() throws GeneralException, DaoException {
@@ -117,7 +143,7 @@ public class ServicoTest {
 		servicoDAO.excluirPorObjeto(servico);
 	}
 	
-	@Ignore
+	@Test
 	public void testServicoInsertError() throws GeneralException, DaoException {
 		thrown.expect(DaoException.class);
 		thrown.expectMessage("Erro ao tentar inserir o servico");
