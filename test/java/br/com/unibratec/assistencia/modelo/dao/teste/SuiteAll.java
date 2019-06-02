@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ServicoDAOtest.class,ServicoTest.class })
-public class SuiteModuloServico{
+@SuiteClasses({SuiteModuloClienteEndereco.class,SuiteModuloServico.class })
+public class SuiteAll {
 
 }
