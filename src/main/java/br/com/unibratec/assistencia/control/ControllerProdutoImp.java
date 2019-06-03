@@ -18,13 +18,13 @@ public class ControllerProdutoImp {
 
 	public void validaPreco(Double valor) throws GeneralException {
 		if (valor <= 0.0) {
-			throw new GeneralException("O valor informado é invalido");
+			throw new GeneralException("O valor informado Ã© invalido");
 		}
 	}
 
 	public void validaQuantidade(int quantidade) throws GeneralException {
 		if (quantidade <= 0) {
-			throw new GeneralException("A quantidade informada é invalida");
+			throw new GeneralException("A quantidade informada Ã© invalida");
 		}
 	}
 

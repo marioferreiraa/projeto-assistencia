@@ -11,11 +11,11 @@ public class ControllerServicoImp {
 
 	public void validaNome(String nome) throws GeneralException {
 		if (nome == null || nome == "") {
-			throw new GeneralException("O nome do serviço deve ser preenchido!");
+			throw new GeneralException("O nome do serviÃ§o deve ser preenchido!");
 		}
 
 		if (nome.length() < 5) {
-			throw new GeneralException("Favor inserir nome de serviço correto. O nome digitado está muito curto!");
+			throw new GeneralException("Favor inserir nome de serviÃ§o correto. O nome digitado estÃ¡ muito curto!");
 		}
 	}
 
@@ -31,7 +31,7 @@ public class ControllerServicoImp {
 
 	public void validaPreco(Double preco) throws GeneralException {
 		if (preco == null) {
-			throw new GeneralException("O preço do serviço deve ser preenchido!");
+			throw new GeneralException("O preÃ§o do serviÃ§o deve ser preenchido!");
 		}
 	}
 

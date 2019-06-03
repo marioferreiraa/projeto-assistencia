@@ -33,7 +33,7 @@ public class ProdutoDAOTest {
 		*/
 		Produto produto = new Produto();
 		produto.setNome("Nome teste");
-		produto.setDescricao("descriçao teste");
+		produto.setDescricao("descriï¿½ao teste");
 		produto.setQuantidade(5);
 		produto.setValor(1000.0);
 		
