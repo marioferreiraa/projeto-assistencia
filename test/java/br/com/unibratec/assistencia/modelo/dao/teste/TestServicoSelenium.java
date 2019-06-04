@@ -1,5 +1,6 @@
 package br.com.unibratec.assistencia.modelo.dao.teste;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -24,6 +25,26 @@ public class TestServicoSelenium {
 	    driver.findElement(By.cssSelector("#formServico\\3Aj_idt28 > .ui-button-text")).click();
 	    driver.findElement(By.cssSelector("#formServico\\3Aj_idt29 > .ui-button-text")).click();
 	}
+	
+	@Test
+	  public void testUpdateServico() {
+		driver.get("http://localhost:8080/assistencia/servico.xhtml");
+	    driver.findElement(By.cssSelector(".ui-icon-pencil")).click();
+	    driver.findElement(By.id("formServico:j_idt24")).click();
+	    driver.findElement(By.id("formServico:j_idt26")).click();
+	    driver.findElement(By.cssSelector("#formServico\\3Aj_idt28 > .ui-button-text")).click();
+	    driver.findElement(By.cssSelector("#formServico\\3Aj_idt29 > .ui-button-text")).click();
+	    }
+	@Test
+	  public void testDeleteServico() {
+	    driver.get("http://localhost:8080/assistencia/servico.xhtml");
+	    driver.findElement(By.cssSelector("#formListagem\\3AtabelaServicos\\3A 1\\3Aj_idt15 > .ui-button-icon-left")).click();
+	    driver.findElement(By.cssSelector("#formListagem\\3Aj_idt19 > .ui-button-text")).click();
+	  }
+	@After
+	  public void tearDown() {
+	    driver.quit();
+	  }
 	
 
 
