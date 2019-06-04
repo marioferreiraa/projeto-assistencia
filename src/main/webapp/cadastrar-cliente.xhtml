@@ -157,12 +157,12 @@
 										<p:outputLabel value="Cidade:"/>
 										<p:inputText size="30" value="#{clienteMB.endereco.cidade}" id="cidade" styleClass="cidade"/>
 										<p:outputLabel value="Complemento:"/>
-										<p:inputText size="30" value="#{clienteMB.endereco.complemento}" />
+										<p:inputText size="30" value="#{clienteMB.endereco.complemento}" id="complemento" />
 										<p:outputLabel value="Numero:"/>
-										<p:inputText size="30" value="#{clienteMB.endereco.numero}"/>
+										<p:inputText size="30" value="#{clienteMB.endereco.numero}" id="numero"/>
 									</h:panelGrid>
 								</div>
-								<p:commandButton value="Salvar" actionListener="#{clienteMB.inserir}" update=":messages :formCliente:panelEndereco :formCliente:panelCliente" styleClass="btn button-salvar"/>
+								<p:commandButton value="Salvar" actionListener="#{clienteMB.inserir}" id="btnSalvar" update=":messages :formCliente:panelEndereco :formCliente:panelCliente" styleClass="btn button-salvar"/>
 								<p:commandButton value="Voltar" styleClass="btn button-voltar"/>
 							</h:form>
 						</div>
