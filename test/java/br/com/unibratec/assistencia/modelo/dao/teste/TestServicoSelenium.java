@@ -2,12 +2,15 @@ package br.com.unibratec.assistencia.modelo.dao.teste;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+@FixMethodOrder(MethodSorters.JVM.NAME_ASCENDING)
 public class TestServicoSelenium {
 	
 	private WebDriver driver;	
@@ -16,7 +19,7 @@ public class TestServicoSelenium {
 		driver = new ChromeDriver();
 	  }
 	@Test	
-	public void testInsertServico() {
+	public void test1InsertServico() {
 		driver.get("http://localhost:8080/assistencia/servico.xhtml");
 		driver.findElement(By.cssSelector("#formListagem\\3AtabelaServicos\\3Aj_idt7 > .ui-button-text")).click();
 	    driver.findElement(By.id("formServico:j_idt24")).sendKeys("ServicoInsertTest");
@@ -27,7 +30,7 @@ public class TestServicoSelenium {
 	}
 	
 	@Test
-	  public void testUpdateServico() {
+	  public void test2UpdateServico() {
 		driver.get("http://localhost:8080/assistencia/servico.xhtml");
 	    driver.findElement(By.cssSelector(".ui-icon-pencil")).click();
 	    driver.findElement(By.id("formServico:j_idt24")).click();
@@ -36,7 +39,7 @@ public class TestServicoSelenium {
 	    driver.findElement(By.cssSelector("#formServico\\3Aj_idt29 > .ui-button-text")).click();
 	    }
 	@Test
-	  public void testDeleteServico() {
+	  public void test3DeleteServico() {
 	    driver.get("http://localhost:8080/assistencia/servico.xhtml");
 	    driver.findElement(By.cssSelector("#formListagem\\3AtabelaServicos\\3A 1\\3Aj_idt15 > .ui-button-icon-left")).click();
 	    driver.findElement(By.cssSelector("#formListagem\\3Aj_idt19 > .ui-button-text")).click();
