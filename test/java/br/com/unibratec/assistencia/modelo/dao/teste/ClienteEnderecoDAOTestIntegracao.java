@@ -46,7 +46,12 @@ public class ClienteEnderecoDAOTestIntegracao {
 	
 	@Test
 	public void testInsertClienteEndereco() throws DaoException, GeneralException {
+		//Arranjar
+		Cliente cliente = createTempCliente();
 		//Agir
+		if(clienteController.clienteDuplicado(cliente.getCpf()) != null) {
+			clienteController.deletarCliente(cliente);
+		}
 		cliente = clienteEnderecoFachada.inserirClienteEndereco(cliente);
 		//Afirmar
 		assertNotNull(cliente.getId());
@@ -55,8 +60,10 @@ public class ClienteEnderecoDAOTestIntegracao {
 	@Test
 	public void testInsertRepeatCliente() throws GeneralException, DaoException {
 		//Arranjar
+		Cliente cliente1 = createTempCliente();
 		Cliente cliente2 = createTempCliente();
 		//Agir
+		cliente1 = clienteEnderecoFachada.inserirClienteEndereco(cliente1);
 		cliente2 = clienteEnderecoFachada.inserirClienteEndereco(cliente2);	
 		//Afirmar
 		assertNull(cliente2);
@@ -65,22 +72,30 @@ public class ClienteEnderecoDAOTestIntegracao {
 	@Test
 	public void testChangeCliente() throws DaoException, GeneralException {
 		//Arranjar
-		Cliente exst = clienteController.clienteDuplicado(cliente.getCpf());
-		exst.getEndereco().setNumero("175");
-		exst.getEndereco().setComplemento("Quadra 17");
+		Cliente cliente = createTempCliente();
 		//Agir
-		this.cliente = clienteController.alterarCliente(exst);
+		cliente = clienteController.clienteDuplicado(cliente.getCpf());
+		if(cliente == null) {
+			cliente = clienteEnderecoFachada.inserirClienteEndereco(cliente);
+		}
+		cliente.getEndereco().setNumero("175");
+		cliente.getEndereco().setComplemento("Quadra 17");
+		
+		this.cliente = clienteController.alterarCliente(cliente);
 		//Afirmar
-		assertEquals("175", this.cliente.getEndereco().getNumero());
+		assertEquals("175", cliente.getEndereco().getNumero());
 	}
 	
 	@Test
 	public void deleteCLiente() throws DaoException, GeneralException{
 		//Agir
 		cliente = clienteController.clienteDuplicado(cliente.getCpf());
-		if(cliente.getId() != null) {
-			clienteController.deletarCliente(this.cliente);
+		if(cliente.getId() == null) {
+			clienteController.inserirCliente(cliente);
 		}
+		
+		clienteController.deletarCliente(this.cliente);
+		
 		this.cliente = clienteController.clienteDuplicado(this.cliente.getCpf());
 		//Afirmar
 		assertNull(this.cliente);	
@@ -161,9 +176,5 @@ public class ClienteEnderecoDAOTestIntegracao {
 		return retorno;
 	}
 
-	@After
-	public void deleteClienteTest() {
-		
-	}
 	
 }
