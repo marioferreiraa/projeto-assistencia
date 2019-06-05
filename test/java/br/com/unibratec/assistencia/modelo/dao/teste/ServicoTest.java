@@ -46,7 +46,7 @@ public class ServicoTest {
 	public void before() {
 		/*
 		 * Arranjar
-		 * Inserindo os dados padrões de um cliente sem erros, no before.
+		 * Inserindo os dados padrões de um servico sem erros, no before.
 		 * O objetivo é criar apenas métodos alterando um dado ou outro, a fim de testar uma validação ou outra, para cobrir todo o código
 		 * do módulo de clientes. Fachada, Controller, Classe básica e Métodos de persistencia
 		 */
