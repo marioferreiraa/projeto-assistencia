@@ -16,6 +16,12 @@
 		<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet" />
+		<style>
+			.dialog{
+				top: 30%!important;
+    			left: 40%!important;
+			}
+		</style>
 	</h:head>
 	<h:body>
 		<p:growl id="messages"/>
@@ -174,7 +180,7 @@
 					
 							</p:dataTable>
 			
-							<p:confirmDialog global="true">
+							<p:confirmDialog global="true" styleClass="dialog">
 								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":messages :formListagem:tabelaClientes"/>
 								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
 							</p:confirmDialog>
@@ -182,7 +188,7 @@
 						</p:panel>
 					</h:form>
 		
-					<p:dialog header="Estados - Cadastro" widgetVar="modalAlterar" draggable="false" resizable="false" modal="true">
+					<p:dialog header="Estados - Cadastro" widgetVar="modalAlterar" draggable="false" resizable="false" modal="true" styleClass="dialog">
 						<h:form id="formCliente">
 							<h:panelGrid columns="2" id="panelCliente">
 								<p:outputLabel value="Nome:"/>
@@ -203,7 +209,7 @@
 							 
 							 			
 							 <h:panelGrid columns="2">
-							 	<p:commandButton value="Salvar" actionListener="#{clienteMB.merge}" update=":messages :formListagem:tabelaClientes :formCliente:panelCliente"/>
+							 	<p:commandButton value="Salvar" actionListener="#{clienteMB.merge}" update=":messages :formListagem:tabelaClientes :formCliente:panelCliente" oncomplete="PF('modalAlterar').hide()"/>
 							 	<p:commandButton value="Fechar" oncomplete="PF('modalAlterar').hide()"/>
 							 </h:panelGrid>
 						</h:form>			

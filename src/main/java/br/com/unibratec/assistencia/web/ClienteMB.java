@@ -91,9 +91,10 @@ public class ClienteMB implements Serializable {
 			try {
 				cliente.setEndereco(endereco);
 				facadeClienteEndereco.inserirClienteEndereco(cliente);
+				Messages.addGlobalInfo("Cliente inserido com sucesso.");				
 				novo();
 			} catch (Exception e) {
-				Messages.addGlobalInfo("Erro ao tentar inserir o cliente");
+				Messages.addGlobalError("Erro ao tentar inserir o cliente");
 				e.printStackTrace();
 			}
 		} else {
