@@ -28,7 +28,7 @@ public class FacadeServico implements Serializable {
 			controllerServico.inserir(servico);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException("Erro ao tentar cadastrar o servi�o");
+			throw new DaoException("Erro ao tentar cadastrar o servico");
 		}
 
 	}

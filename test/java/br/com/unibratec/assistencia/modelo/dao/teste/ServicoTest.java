@@ -47,11 +47,11 @@ public class ServicoTest {
 		/*
 		 * Arranjar
 		 * Inserindo os dados padrões de um servico sem erros, no before.
-		 * O objetivo é criar apenas métodos alterando um dado ou outro, a fim de testar uma validação ou outra, para cobrir todo o código
+		 * O objetivo é criar apenas métodos alterando um dado ou outro, a fim de testar uma validacão ou outra, para cobrir todo o código
 		 * do módulo de clientes. Fachada, Controller, Classe básica e Métodos de persistencia
 		 */
 		servico = new Servico();
-		servico.setNome("Instala��o do Windows");
+		servico.setNome("Instalacão do Windows");
 		servico.setPreco(150.00);
 	}
 	
@@ -63,8 +63,8 @@ public class ServicoTest {
 		/**
 		 * Agir
 		 * Verificando se os dados estão todos OK, utilizando a classe de Controle e fachada.
-		 * Os dados do servico j� foram incluidos
-		 * Metodo sem Assert e sem Expected, simulando que o validarCliente n�o vai estourar nenhuma excess�o.
+		 * Os dados do servico ja foram incluidos
+		 * Metodo sem Assert e sem Expected, simulando que o validarCliente não vai estourar nenhuma excesscão.
 		 */
 		servicoFachada.validarServico(servico);
 		
@@ -73,7 +73,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoWithInvalidName() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("Favor inserir nome de servi�o correto. O nome digitado est� muito curto!");
+		thrown.expectMessage("Favor inserir nome de servico correto. O nome digitado está muito curto!");
 		//Arranjar
 		servico.setNome("aaaa");
 		//Agir
@@ -83,7 +83,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoWithoutName() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("O nome do servi�o deve ser preenchido!");
+		thrown.expectMessage("O nome do servico deve ser preenchido!");
 		//Arranjar
 		servico.setNome("");
 		//Agir
@@ -92,7 +92,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoNullName() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("O nome do servi�o deve ser preenchido!");
+		thrown.expectMessage("O nome do servico deve ser preenchido!");
 		//Arranjar
 		servico.setNome(null);
 		//Agir
@@ -102,7 +102,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoWithoutPrice() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("O pre�o do servi�o deve ser preenchido!");
+		thrown.expectMessage("O preco do servico deve ser preenchido!");
 		//Arranjar
 		servico.setPreco(null);;
 		//Agir
@@ -146,7 +146,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoInsertError() throws GeneralException, DaoException {
 		thrown.expect(DaoException.class);
-		thrown.expectMessage("Erro ao tentar cadastrar o servi�o");
+		thrown.expectMessage("Erro ao tentar cadastrar o servico");
 		//Arranjar
 		servico.setNome("asdfhksjadhfkhasdjkfhksjadhfkjhasdkjfhlkasdhfkjashdkjfhkasjldhfkjash");
 		servico.setPreco(10.0);

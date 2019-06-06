@@ -11,11 +11,11 @@ public class ControllerServicoImp {
 
 	public void validaNome(String nome) throws GeneralException {
 		if (nome == null || nome == "") {
-			throw new GeneralException("O nome do serviço deve ser preenchido!");
+			throw new GeneralException("O nome do servico deve ser preenchido!");
 		}
 
 		if (nome.length() < 5) {
-			throw new GeneralException("Favor inserir nome de serviço correto. O nome digitado está muito curto!");
+			throw new GeneralException("Favor inserir nome de servico correto. O nome digitado está muito curto!");
 		}
 	}
 
@@ -25,13 +25,13 @@ public class ControllerServicoImp {
 	 * Double novoPreco = 0.0;
 	 * 
 	 * try { novoPreco = Double.parseDouble(preco); }catch(NumberFormatException e)
-	 * { throw new GeneralException("O formato do preço é inválido!"); } return
+	 * { throw new GeneralException("O formato do preco é inválido!"); } return
 	 * novoPreco; }
 	 */
 
 	public void validaPreco(Double preco) throws GeneralException {
 		if (preco == null) {
-			throw new GeneralException("O preço do serviço deve ser preenchido!");
+			throw new GeneralException("O preco do servico deve ser preenchido!");
 		}
 	}
 
