@@ -18,10 +18,17 @@ public class FacadeProduto {
 		cp.validaQuantidade(produto.getQuantidade());
 	}
 
-	public void inserirProduto(Produto produto) throws GeneralException, DaoException {
-		this.validarProduto(produto);
-		cp.inserirProduto(produto);
-		Messages.addGlobalInfo("Produto inserido com sucesso!");
+	public Produto inserirProduto(Produto produto) throws GeneralException, DaoException {
+		
+		Produto retorno = new Produto();
+		try {
+			validarProduto(produto);
+			retorno = cp.inserirProduto(produto);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new GeneralException();
+		}
+		return retorno;
 	}
 
 }

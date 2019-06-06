@@ -17,7 +17,7 @@ public class ControllerProdutoImp {
 	}
 
 	public void validaPreco(Double valor) throws GeneralException {
-		if (valor <= 0.0) {
+		if (valor == null || valor <= 0.0) {
 			throw new GeneralException("O valor informado é invalido");
 		}
 	}
@@ -34,14 +34,15 @@ public class ControllerProdutoImp {
 		}
 	}
 
-	public void inserirProduto(Produto produto) throws GeneralException, DaoException {
+	public Produto inserirProduto(Produto produto) throws GeneralException, DaoException {
 		try {
-			produtoDAO.inserirMerge(produto);
+			return produtoDAO.inserir(produto);
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
 	}
-public Produto produtoExistente(String nome) throws DaoException, GeneralException {
+	
+	public Produto produtoExistente(String nome) throws DaoException, GeneralException {
 		
 		Produto p = new Produto();	
 		try {
@@ -69,6 +70,18 @@ public Produto produtoExistente(String nome) throws DaoException, GeneralExcepti
 			e.printStackTrace();
 			throw new DaoException("Erro ao tentar deletar o produto!");
 		}
+	}
+	
+	public Produto procurarPorChavePrimaria(int chavePrimaria) throws DaoException {
+		Produto produto = null;
+		try {
+			produto = produtoDAO.consultarPorChavePrimaria(Produto.class, chavePrimaria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("Erro ao tentar consultar por chave!");
+		}
+		
+		return produto;
 	}
 
 }

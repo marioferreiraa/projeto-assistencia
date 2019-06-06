@@ -29,36 +29,18 @@ import br.com.unibratec.assistencia.model.entity.Servico;
 
 public class ProdutoTest {
 	
-	private static ControllerProdutoImp servicoController;
 	private static FacadeProduto produtoFachada;
-	private static ProdutoDAO produtoDAO;
-	private static List<Produto> resultSet;
-	OrdemServico ordemServico;
-	Produto produto;
+	Produto produto = new Produto();
 	SessionFactory sessao;
 	
 	@BeforeClass
 	public static void beforeClass() {
-		servicoController = new ControllerProdutoImp();
-		produtoFachada = new FacadeProduto();
-		produtoDAO = new ProdutoDAO();
-		
-		
+		produtoFachada = new FacadeProduto();		
 	}
 	
 	@Before
 	public void before() {
-		/*
-		 * Arranjar
-		 * Inserindo os dados padrões de um produto sem erros, no before.
-		 * O objetivo é criar apenas métodos alterando um dado ou outro, a fim de testar uma validação ou outra, para cobrir todo o código
-		 * do módulo de produtos. Fachada, Controller, Classe básica e Métodos de persistencia
-		 */
-		produto = new Produto();
-		produto.setNome("HD DESKTOP 250gb");
-		produto.setDescricao("HD Para computador pessoal");
-		produto.setQuantidade(10);
-		produto.setValor(220.0);
+		
 	}
 	
 	@Rule
@@ -72,6 +54,7 @@ public class ProdutoTest {
 		 * Os dados do produto j� foram incluidos
 		 * Metodo sem Assert e sem Expected, simulando que o validarCliente n�o vai estourar nenhuma excess�o.
 		 */
+		Produto produto = createTempProduto();
 		produtoFachada.validarProduto(produto);
 		
 	}
@@ -81,8 +64,9 @@ public class ProdutoTest {
 		thrown.expect(GeneralException.class);
 		thrown.expectMessage("O nome do produto não pode ser deixado em branco");
 		//Arranjar
-		produto.setNome("");
+		Produto produto = createTempProduto();
 		//Agir
+		produto.setNome("");
 		produtoFachada.validarProduto(produto);		
 	}
 	
@@ -91,120 +75,64 @@ public class ProdutoTest {
 		thrown.expect(GeneralException.class);
 		thrown.expectMessage("O nome do produto não pode ser deixado em branco");
 		//Arranjar
-		produto.setNome("");
+		Produto produto = createTempProduto();
 		//Agir
+		produto.setNome("");
 		produtoFachada.validarProduto(produto);	
 	}
+	
 	@Test
 	public void testProdutoNullName() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
 		thrown.expectMessage("O nome do produto não pode ser deixado em branco");
 		//Arranjar
-		produto.setNome(null);
+		Produto produto = createTempProduto();
 		//Agir
+		produto.setNome("");
 		produtoFachada.validarProduto(produto);	
 	}
 	
 	@Test
 	public void testProdutoWithoutPrice() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		throw new GeneralException("O valor informado é invalido");
 		//Arranjar
-		//produto.setValor(-220.0);
+		Produto produto = createTempProduto();
 		//Agir
-		//produtoFachada.validarProduto(produto);
+		produto.setValor(null);
+		produtoFachada.validarProduto(produto);
 	}
+	
 	@Test
 	public void testProdutoConstruct() throws GeneralException, DaoException {
 		//Arranjar
+		Produto produto = new Produto("TesteCreateProduto","TesteDescricaoProduto",1,10.1);
 		//Agir
-		produto = new Produto("TesteCreateProduto","TesteDescricaoProduto",0,10.1);
-		}
-	@Test
-	public void testProdutoGetProduto() throws GeneralException, DaoException {
-		//Arranjar
-		//Agir
-		produto.getId();
-		}
-	@Test
-	public void testProdutoGetOrdemServico() throws GeneralException, DaoException {
-		//Arranjar
-		//Agir
-		produto.getOrdemServico();
-		}
-	@Test
-	public void testProdutoSetOrdemServico() throws GeneralException, DaoException {
-		//Arranjar
-		//Agir
-		produto.setOrdemServico(ordemServico);
-		}
-	
-	@Test
-	public void testProdutoInsert() throws GeneralException, DaoException {
-		//Arranjar
-		//Agir
-	//	produtoFachada.inserirProduto(produto);
-		produtoDAO.excluirPorObjeto(produto);
+		produtoFachada.validarProduto(produto);
 	}
 	
 	@Test
-	public void testProdutoInsertError() throws GeneralException, DaoException {
-		thrown.expect(DaoException.class);
+	public void testProdutoWithoutQuantidade() throws GeneralException, DaoException {
+		thrown.expect(GeneralException.class);
+		thrown.expectMessage("A quantidade informada é invalida");
 		//Arranjar
-		produto.setNome("asdfhksjadhfkhasdjkfhksjadhfkjhasdkjfhlkasdhfkjashdkjasdfasdfasdfasdfasdfhkasjldhfkjash");
+		Produto produto = new Produto("TesteCreateProduto","TesteDescricaoProduto",0,10.1);
 		//Agir
-		produtoFachada.inserirProduto(produto);
+		produtoFachada.validarProduto(produto);
 	}
 	
 	@Test
-	public void testProdutoUpdate() throws GeneralException, DaoException {
+	public void testProdutoWithoutDescription() throws GeneralException, DaoException {
+		thrown.expect(GeneralException.class);
+		thrown.expectMessage("A descrição deve ser informada!");
 		//Arranjar
-		produto.setId(1);
-		produto.setNome("TesteProdutoUpdate");
+		Produto produto = new Produto("TesteCreateProduto","",0,10.1);
 		//Agir
-		produtoDAO.inserirMerge(produto);
-	}
-	@Test
-	public void testProdutoUpdateError() throws GeneralException, DaoException {
-		thrown.expect(DaoException.class);
-		//Arranjar
-		produto.setId(1);
-		produto.setNome("TesteServicoUpdateasfas dfasdfsadf ae ERRRROOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRr");
-		//Agir
-		produtoDAO.inserirMerge(produto);
-	}
-	@Test
-	public void testProdutoSelect() throws GeneralException, DaoException {
-		//Arranjar
-		//Agir
-		resultSet = produtoDAO.consultarTodosOsProdutos();
-	}
+		produtoFachada.validarProduto(produto);
+	}	
 	
-	
-	@Test
-	public void testProdutoDelete() throws GeneralException, DaoException {
-		//Arranjar
-		produto.setNome("Excluir");
-		//produtoFachada.inserirProduto(produto);
-		//Agir
-		//produtoDAO.excluirPorObjetoDireto(produto);
+	public Produto createTempProduto() {
+		Produto produto = new Produto("Memoria RAM", "Memoria RAM de 8 GB para Notebook",10,300.0);
+		return produto;
 	}
-	
-	@Ignore
-	public void testProdutoSelectError() throws GeneralException, DaoException {
-		thrown.expect(DaoException.class);
-		//Arranjar
-		sessao.isClosed();
-		//Agir	
-		resultSet = produtoDAO.consultarTodosOsProdutos();
-	}
-	
-	@After
-	public void after() {
-		produto.setNome(null);
-		produto.setValor(null);
-	}
-	
-	
 	
 }

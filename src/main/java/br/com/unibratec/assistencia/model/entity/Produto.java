@@ -96,8 +96,4 @@ public class Produto implements IEntidade, Serializable {
 		this.ordemServico = ordemServico;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 }

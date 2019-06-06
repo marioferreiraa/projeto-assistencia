@@ -73,7 +73,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoWithInvalidName() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("Favor inserir nome de servi�o correto. O nome digitado est� muito curto!");
+		thrown.expectMessage("Favor inserir nome de serviço correto. O nome digitado está muito curto!");
 		//Arranjar
 		servico.setNome("aaaa");
 		//Agir
@@ -83,7 +83,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoWithoutName() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("O nome do servi�o deve ser preenchido!");
+		thrown.expectMessage("O nome do serviço deve ser preenchido!");
 		//Arranjar
 		servico.setNome("");
 		//Agir
@@ -92,7 +92,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoNullName() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("O nome do servi�o deve ser preenchido!");
+		thrown.expectMessage("O nome do serviço deve ser preenchido!");
 		//Arranjar
 		servico.setNome(null);
 		//Agir
@@ -102,7 +102,7 @@ public class ServicoTest {
 	@Test
 	public void testServicoWithoutPrice() throws GeneralException, DaoException {
 		thrown.expect(GeneralException.class);
-		thrown.expectMessage("O pre�o do servi�o deve ser preenchido!");
+		thrown.expectMessage("O preço do serviço deve ser preenchido!");
 		//Arranjar
 		servico.setPreco(null);;
 		//Agir

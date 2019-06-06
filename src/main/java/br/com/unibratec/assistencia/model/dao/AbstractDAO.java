@@ -64,7 +64,7 @@ public abstract class AbstractDAO<T> implements InterfaceDAO<T> {
 		pEntityManager.remove(registro);
 
 		pEntityManager.getTransaction().commit();
-
+		
 		if (pFecharEntityManager) {
 			pEntityManager.close();
 		}

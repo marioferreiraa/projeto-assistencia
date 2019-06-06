@@ -2,6 +2,7 @@ package br.com.unibratec.assistencia.modelo.dao.teste;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -91,13 +92,14 @@ public class ServicoDAOtest {
 	@Test
 	public void testServicoUpdate() throws GeneralException, DaoException {
 		//Arranjar
-		servico.setId(1);
-		servico.setNome("TesteServicoUpdate");
-		servico.setPreco(15.0);
+		List<Servico> listaServicos = new ArrayList<Servico>();
+		listaServicos = servicoDAO.consultarTodosOsServicos();
 		//Agir
+		Servico servico = listaServicos.get(0);
+		servico.setNome("Limpeza de Gabinete");
 		servicoFachada.mergearServico(servico);
 		
-		servicoFind = servicoDAO.consultarPorObjeto(servico);
+		servicoFind = servicoDAO.consultarPorChavePrimaria(Servico.class, servico.getChavePrimaria());
 		
 		assertEquals(servico.getNome(), servicoFind.getNome());
 	}
