@@ -51,7 +51,7 @@ public class ServicoDAOtest {
 		/*
 		 * Arranjar
 		 * Inserindo os dados padrões de um cliente sem erros, no before.
-		 * O objetivo é criar apenas métodos alterando um dado ou outro, a fim de testar uma validação ou outra, para cobrir todo o código
+		 * O objetivo é criar apenas métodos alterando um dado ou outro, a fim de testar uma validacão ou outra, para cobrir todo o código
 		 * do módulo de clientes. Fachada, Controller, Classe básica e Métodos de persistencia
 		 */
 		servico = new Servico();
@@ -81,7 +81,7 @@ public class ServicoDAOtest {
 	@Test
 	public void testServicoInsertError() throws GeneralException, DaoException {
 		thrown.expect(DaoException.class);
-		thrown.expectMessage("Erro ao tentar cadastrar o servi�o");
+		thrown.expectMessage("Erro ao tentar cadastrar o servico");
 		//Arranjar
 		servico.setNome("asdfhksjadhfkhasdjkfhksjadhfkjhasdkjfhlkasdhfkjashdkjfhkasjldhfkjash");
 		servico.setPreco(10.0);
