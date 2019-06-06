@@ -19,11 +19,12 @@ public class TestServicoSelenium {
 		driver = new ChromeDriver();
 	  }
 	@Test	
-	public void testaInsertServico() {
+	public void testaInsertServico() throws InterruptedException {
 		driver.get("http://localhost:8080/assistencia/servico.xhtml");
 		driver.manage().window().setSize(new Dimension(1366, 741));
 		driver.findElement(By.cssSelector("#formListagem\\3AtabelaServicos\\3Aj_idt7 > .ui-button-text")).click();
 	    driver.findElement(By.id("formServico:j_idt24")).sendKeys("ServicoInsertTest");
+	    Thread.sleep(2000);
 	    driver.findElement(By.id("formServico:j_idt26")).click();
 	    driver.findElement(By.id("formServico:j_idt26")).sendKeys("100");
 	    driver.findElement(By.cssSelector("#formServico\\3Aj_idt28 > .ui-button-text")).click();
